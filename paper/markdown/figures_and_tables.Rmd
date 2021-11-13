@@ -1,0 +1,158 @@
+---
+title: "Phenotyping of acute and persistent COVID-19 features in the outpatient setting: exploratory analysis of an international cross-sectional online survey"
+subtitle: "Figures, Revision"
+author: "Health after COVID-19 in Tyrol study team"
+date: "`r format(Sys.time(), '%Y-%m-%d')`"
+
+output: 
+  pdf_document:
+    latex_engine: xelatex
+bibliography: cov_biblio.bib
+csl: clinical-infectious-diseases.csl
+header-includes:
+  \usepackage{longtable}
+  \usepackage{tabu}
+  \usepackage{caption}
+  \usepackage{makecell}
+  \usepackage{pdflscape}
+  \usepackage{array}
+  \usepackage{booktabs}
+  \usepackage{threeparttable}
+  \usepackage{threeparttablex}
+  \usepackage{wrapfig}
+  \usepackage{multirow}
+  \usepackage[normalem]{ulem}
+  \usepackage{colortbl}
+  \usepackage{xcolor}
+  \usepackage{float} \floatplacement{figure}{H}
+  \newcommand{\beginsupplement}{\setcounter{table}{0}  \renewcommand{\thetable}{S\arabic{table}}       \setcounter{figure}{0} \renewcommand{\thefigure}{S\arabic{figure}}}
+---
+
+```{r, setup, include = FALSE}
+
+library(bookdown)
+
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, dev = "cairo_pdf")
+
+
+```
+
+\newpage
+
+
+# Figures {#sec:figures}
+
+```{r fig-consort, fig.width = mm_inch(paper_figures$consort$w), fig.height = mm_inch(paper_figures$consort$h), dpi = 600, fig.cap = 'CONSORT flow diagram for the study populations.'}
+
+paper_figures$consort$plot
+
+```
+
+__Figure \@ref(fig:fig-consort). CONSORT flow diagram for the study populations.__
+
+\newpage
+
+```{r fig-symptom-sum, fig.width = mm_inch(paper_figures$symptom_sum$w), fig.height = mm_inch(paper_figures$symptom_sum$h), dpi = 600, fig.cap = 'Kinetic of symptom resolution.'}
+
+paper_figures$symptom_sum$plot
+
+```
+
+__Figure \@ref(fig:fig-symptom-sum). Kinetic of symptom resolution.__
+
+__(A)__ Percents of symptomatic participants in time. Statistical significance was determined by $\chi^2$ test for trend. P values are shown in the plot caption.
+
+__(B, C)__ Symptom number trajectories in the entire study cohorts (__B__) and in the subsets with or without long COVID. Thin gray lines: individual symptom number trajectories, thick color line: median symptom count, color ribbon: IQR. Statistical significance was determined by mixed-effect Poisson modeling. Model estimates ($\beta$) with 95% CI and p values are indicated in the plot.
+
+Numbers of complete cases are indicted under the plots. TY: Tyrol, STY: South Tyrol cohort.
+
+
+\newpage
+
+```{r fig-frequencies-sympt, fig.width = mm_inch(paper_figures$frequencies_sympt$w), fig.height = mm_inch(paper_figures$frequencies_sympt$h), dpi = 600, fig.cap = 'Symptom frequency in acute and sub-acute COVID-19, long COVID and PASC.'}
+
+paper_figures$frequencies_sympt$plot
+
+```
+
+__Figure \@ref(fig:fig-frequencies-sympt). Symptom frequency in acute and sub-acute COVID-19, long COVID and PASC.__
+
+Symptom frequencies were expressed as percentages of the individuals with symptoms at the indicated time points after clinical onset. Point size and color represents the percentage. Numbers of complete observations are indicated below the plot.
+
+tired. day: tiredness at day, imp.: impaired, conc.: concentration, abd. pain: abdominal pain, dim.: diminished, f.m.s: fine motor skills, bl.: blue, marm. skin: marmorated skin, TY: Tyrol, STY: South Tyrol cohort.
+
+\newpage
+
+```{r fig-acute-phenotypes, fig.width = mm_inch(paper_figures$acute_phenotypes$w), fig.height = mm_inch(paper_figures$acute_phenotypes$h), dpi = 600, fig.cap = 'Clustering of acute COVID-19 symptoms.'}
+
+paper_figures$acute_phenotypes$plot
+
+```
+
+__Figure \@ref(fig:fig-acute-phenotypes). Clustering of acute COVID-19 symptoms.__
+
+Clusters (phenotypes) of acute COVID-19 symptoms, the non-specific infection (NIP) and multi-organ phenotype (MOP), were defined in the training Tyrol (TY) cohort by simple matching distance (SMD) and PAM (partitioning around medoids) algorithm. The phenotype assignment scheme was applied to the test South Tyrol data set (__Supplementary Figure S5__). SMD values for symptom pairs in the TY cohort are presented as a heat map. The number of complete observations is indicated under the plot.
+
+tired. day: tiredness at day, imp.: impaired, conc.: concentration, abd. pain: abdominal pain, dim.: diminished, f.m.s: fine motor skills, bl.: blue, marm. skin: marmorated skin.
+
+\newpage
+
+```{r fig-long-phenotypes, fig.width = mm_inch(paper_figures$long_phenotypes$w), fig.height = mm_inch(paper_figures$long_phenotypes$h), dpi = 600, fig.cap = 'Clustering of persistent COVID-19 symptoms.'}
+
+paper_figures$long_phenotypes$plot
+
+```
+
+__Figure \@ref(fig:fig-long-phenotypes). Clustering of persistent COVID-19 symptoms.__
+
+Clusters (phenotypes) of long COVID symptoms, the hypo/anosmia (HAP), fatigue (FAP) and multi-organ phenotype (MOP), were defined in the training Tyrol (TY) cohort with simple matching distance (SMD) and PAM algorithm. The phenotype assignment scheme was applied to the test South Tyrol data set (__Supplementary Figure S6__). SMD values for symptom pairs in the TY cohort are presented as a heat map. The number of complete observations is indicated under the plot.
+
+tired. day: tiredness at day, imp.: impaired, conc.: concentration, abd. pain: abdominal pain, dim.: diminished, f.m.s: fine motor skills, bl.: blue, marm. skin: marmorated skin.
+
+\newpage
+
+```{r fig-part-clust, fig.width = mm_inch(paper_figures$long_covid_subsets$w), fig.height = mm_inch(paper_figures$long_covid_subsets$h), dpi = 600, fig.cap = 'Subsets of long COVID individuals defined by HAP, FAP and MOP phenotype symptoms.'}
+
+paper_figures$long_covid_subsets$plot
+
+```
+
+__Figure \@ref(fig:fig-part-clust). Subsets of long COVID individuals defined by HAP, FAP and MOP phenotype symptoms.__
+
+Hypo/anosmia-negative (HAP-), intermediate (HAPi) and high (HAP+) subsets of long COVID individuals were defined in the training Tyrol (TY) cohort with Manhattan distance and DBSCAN clustering according to the counts of hypo/anosmia (HAP), fatigue (FAP) and multi-organ phenotype (MOP) symptoms. The subset assignment in the test South Tyrol (STY) cohort was done with k-nearest-neighbor label propagation algorithm.
+
+__(A)__ Two-dimensional principal component analysis (PCA) score plot with the long COVID participant subset assignment. Percent variances associated with principal components (PC) are indicated in the plot axes. Numbers of subset individuals are indicated under the plots.
+
+__(B)__ Minimum/maximum-normalized counts of HAP, MOP and FAP symptoms in the long COVID participant subsets. Differences between the participant subsets were investigated by Kruskal-Wallis test.
+
+__(C)__ Occurrence of the 10 most frequent HAP, FAP and MOP long COVID symptoms (__Supplementary Figure S3__) in the long COVID participant subsets presented as a heat map.
+
+imp. conc.: impaired concentration, tired. day: tiredness at day.
+
+\newpage
+
+```{r fig-part-clinic, fig.width = mm_inch(paper_figures$long_covid_clinics$w), fig.height = mm_inch(paper_figures$long_covid_clinics$h), dpi = 600, fig.cap = 'The most relevant demographic and clinical features of the long COVID participant subsets.'}
+
+paper_figures$long_covid_clinics$plot
+
+```
+
+__Figure \@ref(fig:fig-part-clinic). The most relevant demographic and clinical features of the long COVID participant subsets.__
+
+Differences in demographic and clinical features (__Supplementary Table S5__) between the hypo/anosmia-negative (HAP-), intermediate (HAPi) and high (HAP+) subsets of long COVID individuals were investigated by $\chi^2$ test. Comparison results for the most differentiating features: sex (__A__), body mass index class (__B__), number of comorbidities (__C__) and antibiotic therapy during acute COVID-19 (__D__) are presented. Raw and multiple testing-adjusted significance (pFDR) p values are presented in the plot captions. Numbers of subset individuals are indicated under the plots. TY: Tyrol, STY: South Tyrol.
+
+\newpage
+
+```{r fig-part-recovery, fig.width = mm_inch(paper_figures$long_covid_recovery$w), fig.height = mm_inch(paper_figures$long_covid_recovery$h), dpi = 600, fig.cap = 'Rating of physical, quality of life and mental impairment in the long COVID participant clusters.'}
+
+paper_figures$long_covid_recovery$plot
+
+```
+
+__Figure \@ref(fig:fig-part-recovery). Rating of physical, quality of life and mental impairment in the long COVID participant clusters.__
+
+__(A)__ Minimum/maximum-normalized scores of physical performance (phys. imp), quality of life (QoL), overall mental health (OMH) impairment and stress in the hypo/anosmia-negative (HAP-), intermediate (HAPi) and high (HAP+) subsets of long COVID individuals. Differences between the participant subsets were investigated by Kruskal-Wallis test. Numbers of subset individuals are indicated under the plots.
+
+__(B - D)__ Frequencies of self-reported complete convalescence (__B__), symptom relapse (__C__) and hair loss during COVID-19 recovery (__D__) in the long COVID participant subsets. Statistical significance was assessed by $\chi^2$ test. Raw and multiple testing-adjusted significance (pFDR) p values are presented in the plot captions.
+
+TY: Tyrol, STY: South Tyrol.
