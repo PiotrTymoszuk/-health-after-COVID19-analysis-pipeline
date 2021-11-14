@@ -98,7 +98,11 @@
                                               'STY: PASC'), 
                                plot_tag = part_clust$n_tags %>% 
                                  transpose %>% 
-                                 unlist(recursive = FALSE)) %>% 
+                                 unlist(recursive = FALSE), 
+                               sympt_clustering = list(symptom_clust$analyses_north$long, 
+                                                       symptom_clust$analyses_north$long, 
+                                                       symptom_clust$analyses_north$chronic, 
+                                                       symptom_clust$analyses_north$chronic)) %>% 
     pmap(plot_sympt_hm, 
          vars = part_sympt$plot_features) %>% 
     map(~.x + 

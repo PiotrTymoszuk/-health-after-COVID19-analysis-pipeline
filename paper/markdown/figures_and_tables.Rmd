@@ -139,20 +139,22 @@ paper_figures$long_covid_clinics$plot
 
 __Figure \@ref(fig:fig-part-clinic). The most relevant demographic and clinical features of the long COVID participant subsets.__
 
-Differences in demographic and clinical features (__Supplementary Table S5__) between the hypo/anosmia-negative (HAP-), intermediate (HAPi) and high (HAP+) subsets of long COVID individuals were investigated by $\chi^2$ test. Comparison results for the most differentiating features: sex (__A__), body mass index class (__B__), number of comorbidities (__C__) and antibiotic therapy during acute COVID-19 (__D__) are presented. Raw and multiple testing-adjusted significance (pFDR) p values are presented in the plot captions. Numbers of subset individuals are indicated under the plots. TY: Tyrol, STY: South Tyrol.
+Differences in demographic and clinical features (__Supplementary Table S5__) between the hypo/anosmia-negative (HAP-), intermediate (HAPi) and high (HAP+) subsets of long COVID individuals were investigated by $\chi^2$ test. Comparison results for the most differentiating features: sex (__A__), body mass index class (__B__) and number of comorbidities (__C__) are presented. Raw and multiple testing-adjusted significance (pFDR) p values are presented in the plot captions. Numbers of subset individuals are indicated under the plots. TY: Tyrol, STY: South Tyrol.
 
 \newpage
 
-```{r fig-part-recovery, fig.width = mm_inch(paper_figures$long_covid_recovery$w), fig.height = mm_inch(paper_figures$long_covid_recovery$h), dpi = 600, fig.cap = 'Rating of physical, quality of life and mental impairment in the long COVID participant clusters.'}
+```{r fig-part-recovery, fig.width = mm_inch(paper_figures$long_covid_recovery$w), fig.height = mm_inch(paper_figures$long_covid_recovery$h), dpi = 600, fig.cap = 'Acute symptom count, rating of physical, quality of life and mental impairment in the long COVID participant subsets.'}
 
 paper_figures$long_covid_recovery$plot
 
 ```
 
-__Figure \@ref(fig:fig-part-recovery). Rating of physical, quality of life and mental impairment in the long COVID participant clusters.__
+__Figure \@ref(fig:fig-part-recovery). Acute symptom count, rating of physical, quality of life and mental impairment in the long COVID participant subsets.__
 
-__(A)__ Minimum/maximum-normalized scores of physical performance (phys. imp), quality of life (QoL), overall mental health (OMH) impairment and stress in the hypo/anosmia-negative (HAP-), intermediate (HAPi) and high (HAP+) subsets of long COVID individuals. Differences between the participant subsets were investigated by Kruskal-Wallis test. Numbers of subset individuals are indicated under the plots.
+__(A)__ Numbers (#) of acute COVID-19 symptoms in the hypo/anosmia-negative (HAP-), intermediate (HAPi) and high (HAP+) subsets of long COVID individuals. Statistical significance was assessed with Kruskal-Wallis test. aw and multiple testing-adjusted significance (pFDR) p values are presented in the plot captions. Numbers of subset individuals are indicated under the plots.
 
-__(B - D)__ Frequencies of self-reported complete convalescence (__B__), symptom relapse (__C__) and hair loss during COVID-19 recovery (__D__) in the long COVID participant subsets. Statistical significance was assessed by $\chi^2$ test. Raw and multiple testing-adjusted significance (pFDR) p values are presented in the plot captions.
+__(B)__ Minimum/maximum-normalized scores of physical performance (phys. imp), quality of life (QoL), overall mental health (OMH) impairment and stress in the subsets of long COVID individuals. Statistical significance was assessed with Kruskal-Wallis test. Multiple testing-adjusted significance are presented in the plots.
+
+__(C - D)__ Frequencies of self-reported complete convalescence (__B__) and symptom relapse (__C__) in the long COVID participant subsets. Statistical significance was assessed by $\chi^2$ test. Raw and multiple testing-adjusted significance (pFDR) p values are presented in the plot captions.
 
 TY: Tyrol, STY: South Tyrol.

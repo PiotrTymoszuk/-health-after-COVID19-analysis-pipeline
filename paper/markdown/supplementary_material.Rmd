@@ -44,7 +44,7 @@ knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, dev = "cai
 
 ## Study design and participants
 
-The bi-national 'Health after COVID-19 in Tyrol' study (ClinicalTrials.gov: NCT04661462) was conducted in the Austrian state of Tyrol and the Italian province of South Tyrol. Between 30^th^ September 2020 and 5^th^ July 2021, COVID-19 convalescents recovering from SARS-CoV-2 infection confirmed by nasal or oral swab PCR or blood antibody test were invited to participate in an anonymized, cross-sectional web-based survey [@Holzner2012] via public media call (local broadcasters and newspapers) or contact with a physician. Residency in the study regions and age $\geq$ 16 (Tyrol) or $\geq$ 18 years (South Tyrol) were additional study inclusion criteria.
+The bi-national 'Health after COVID-19 in Tyrol' study (ClinicalTrials.gov: NCT04661462) was conducted in the Austrian state of Tyrol and the bordering Italian province of South Tyrol. Between 30^th^ September 2020 and 5^th^ July 2021, COVID-19 convalescents recovering from SARS-CoV-2 infection confirmed by nasal or oral swab PCR or blood antibody test were invited to participate in an anonymized, cross-sectional web-based survey [@Holzner2012] via public media call (local broadcasters: ORF Tirol and RAI Südtirol and newspapers) or contact with a physician. Residency in the study regions and age $\geq$ 16 (Tyrol) or $\geq$ 18 years (South Tyrol) were additional study inclusion criteria.
 
 Analysis exclusion criteria in this report were hospitalization because of SARS-CoV-2 infection and the observation time (SARS-CoV-2 test to survey completion) of less than 28 days. Additionally, phenotyping of post-acute sequelae of COVID-19 (PASC) was done with the subsets of the original cohort including the participants with a minimal observation time of 90 days. The scheme of study and analysis inclusion is provided in __Figure 1__.
 
@@ -52,7 +52,7 @@ The study was performed in accordance with the Declaration of Helsinki and the E
 
 ## Measures
 
-The study questionnaire was developed by a multidisciplinary team (infectious disease specialists, pneumologists, internists, neurologists, psychiatrists, dermatologists, general practitioners, public health and rehabilitation physicians). The survey recorded information on demographics (age, sex, height, weight before infection), socioeconomic status (education, profession, employment status, residence, household size), pre-existing comorbidities (`r globals$comorb %>% length` items), smoking history, daily medication (quantity, major drug types relevant for SARS-CoV-2 infection course), course of SARS-CoV-2 infection (contact with an infected individual, incubation time, quarantine duration, contact with authorities and physicians), presence and duration of COVID-19 symptoms (`r globals$symptoms %>% length` items), illness perception, symptom relapse as well as psychosocial health and physical constitution during COVID-19 convalescence. Study variables are listed in __Supplementary Table \@ref(tab:tab-study-variables)__. Baseline demographic, socioeconomic and clinical characteristic of the study populations is presented in __Table 1__. Features of acute COVID-19 course in both study cohorts are presented in __Table 2__. Post-acute characteristic of the study populations is shown in __Table 3__.
+The study questionnaire was developed by a multidisciplinary team (infectious disease specialists, pneumologists, internists, neurologists, psychiatrists, dermatologists, general practitioners, public health and rehabilitation physicians). The survey recorded information on demographics (age, sex, height, weight before infection), socioeconomic status (education, profession, employment status, residence, household size), pre-existing comorbidities (`r globals$comorb %>% length` items), smoking history, daily medication (quantity, major drug types relevant for SARS-CoV-2 infection course), course of SARS-CoV-2 infection (contact with an infected individual, incubation time, quarantine duration, contact with authorities and physicians), presence and duration of COVID-19 symptoms (`r globals$symptoms %>% length` items), illness perception, symptom relapse as well as psychosocial health and physical constitution during COVID-19 convalescence. Study variables are listed in __Supplementary Table \@ref(tab:tab-study-variables)__. Baseline demographic, socioeconomic and clinical characteristic of the study populations is presented in __Table 1__. Features of acute COVID-19 course in both study cohorts are presented in __Table 2__. Post-acute characteristic of the study populations is shown in __Table 3__. The German and Italian survey texts as well as the English translation are available as __Supplementary Files__.
 
 ## Definitions and variable stratification
 
@@ -107,9 +107,9 @@ Significance of model estimates was determined by Wald Z test and p values were 
 
 ### LASSO modeling
 
-Identification of the most influential among candidate factors (__Supplementary Table \@ref(tab:tab-mod-variables)__) associated with the count of acute COVID-19 symptoms, risk of long COVID and PASC was accomplished with LASSO (least absolute shrinkage and selection operator) generalized linear modeling (symptom sum: Poisson, risk: logistic regression) and _cv.glmnet()_ tools from _glmnet_ package [@Tibshirani1996; @Friedman2010]. The models were age- and sex weighted (__Supplementary Table \@ref(tab:tab-modeling-weights)__).
+Identification of the most influential among candidate factors (__Supplementary Table \@ref(tab:tab-mod-variables)__) associated with the count of acute COVID-19 symptoms, risk of long COVID and PASC was accomplished with LASSO (least absolute shrinkage and selection operator) generalized linear modeling (symptom count: Poisson, risk: logistic regression) and _cv.glmnet()_ tools from _glmnet_ package [@Tibshirani1996; @Friedman2010]. The models were age- and sex weighted (__Supplementary Table \@ref(tab:tab-modeling-weights)__).
 
-LASSO models were constructed in the training Tyrol cohort (__Supplementary Figure \@ref(fig:fig-lasso-acute)A__ and __\@ref(fig:fig-lasso-risk)A__) with the lambda parameter set to 'lambda.1se' resulting in the output models with optimal regularization. The models were subjected to internal (redistribution) and 50-fold cross-validation in the training cohort with the MAE (mean absolute error, symptom sum) or MSE (mean squared error, risk) error statistic. Re-distribution and cross-validation statistics were extracted with _assess.glmnet()_ function and home-developed wrappers (https://github.com/PiotrTymoszuk/lasso_tools). Pseudo R^2^ was calculated with the formula $pseudo-R^2=1 - deviance/null\:deviance$. Quality of model fit and assumptions were checked by visual inspection of the plots of model residuals.
+LASSO models were constructed in the training Tyrol cohort (__Supplementary Figure \@ref(fig:fig-lasso-acute)A__ and __\@ref(fig:fig-lasso-risk)A__) with the lambda parameter set to 'lambda.1se' resulting in the output models with optimal regularization. The models were subjected to internal (redistribution) and 50-fold cross-validation in the training cohort with the MAE (mean absolute error, symptom count) or MSE (mean squared error, risk) error statistic. Re-distribution and cross-validation statistics were extracted with _assess.glmnet()_ function and home-developed wrappers (https://github.com/PiotrTymoszuk/lasso_tools). Pseudo R^2^ was calculated with the formula $pseudo-R^2=1 - deviance/null\:deviance$. Quality of model fit and assumptions were checked by visual inspection of the plots of model residuals.
 
 Symptom count, long COVID and PASC risk predictions by the LASSO models developed in the training Tyrol cohort were externally validated in the South Tyrol test cohort (__Supplementary Figure \@ref(fig:fig-lasso-acute)B__ and __\@ref(fig:fig-lasso-risk)B__). The quality of long COVID and PASC prediction was assessed with receiver-operator characteristic (ROC) using tools proveided by _OptimalCutpoints_ and _plotROC_ packages [@Lopez-Raton2014; @Sachs2017].
 
@@ -140,7 +140,7 @@ suppl_tables$study_variables[1, 1] %>%
 ```{r tab-sypt-sum}
 
 suppl_tables$symptom_sum_strata %>% 
-  kable(caption = '\\textbf{Stratification of the acute symptom sum variables for modeling tasks}. \\\\$\\#$: number, NIP: non-specific infection phenotype, MOP: multi-organ phenotype.', 
+  kable(caption = '\\textbf{Stratification of the acute symptom count variables for modeling tasks}. \\\\$\\#$: number, NIP: non-specific infection phenotype, MOP: multi-organ phenotype.', 
         format = 'latex', 
         escape = T, 
         booktabs = T) %>% 
@@ -450,17 +450,19 @@ Differences in demographic and clinical features (__Supplementary Table \@ref(ta
 
 \newpage
 
-```{r fig-part-recovery, fig.width = mm_inch(suppl_figures$pasc_recovery$w), fig.height = mm_inch(suppl_figures$pasc_recovery$h), dpi = 600, fig.cap = 'Rating of physical, quality of life and mental impairment in the PASC participant clusters.'}
+```{r fig-part-recovery, fig.width = mm_inch(suppl_figures$pasc_recovery$w), fig.height = mm_inch(suppl_figures$pasc_recovery$h), dpi = 600, fig.cap = 'Acute symptom count, rating of physical, quality of life and mental impairment in the PASC participant subsets.'}
 
 suppl_figures$pasc_recovery$plot
 
 ```
 
-__Supplementary Figure \@ref(fig:fig-part-recovery). Rating of physical, quality of life and mental impairment in the PASC participant clusters.__
+__Supplementary Figure \@ref(fig:fig-part-recovery). Acute symptom count, rating of physical, quality of life and mental impairment in the PASC participant subsets.__
 
-__(A)__ Minimum/maximum-normalized scores of physical performance (phys. imp), quality of life (QoL), overall mental health (OMH) impairment and stress in the hypo/anosmia-negative (HAP-), intermediate (HAPi) and high (HAP+) subsets of PASC individuals. Differences between the participant subsets were investigated by Kruskal-Wallis test. Numbers of subset individuals are indicated under the plots.
+__(A)__ Numbers (#) of acute COVID-19 symptoms in the hypo/anosmia-negative (HAP-), intermediate (HAPi) and high (HAP+) subsets of PASC individuals. Statistical significance was assessed with Kruskal-Wallis test. aw and multiple testing-adjusted significance (pFDR) p values are presented in the plot captions. Numbers of subset individuals are indicated under the plots.
 
-__(B - D)__ Frequencies of self-reported complete convalescence (__B__), symptom relapse (__C__) and hair loss during COVID-19 recovery (__D__) in the PASC participant subsets. Statistical significance was assessed by $\chi^2$ test. Raw and multiple testing-adjusted significance (pFDR) p values are presented in the plot captions.
+__(B)__ Minimum/maximum-normalized scores of physical performance (phys. imp), quality of life (QoL), overall mental health (OMH) impairment and stress in the subsets of PASC individuals. Statistical significance was assessed with Kruskal-Wallis test. Multiple testing-adjusted significance are presented in the plots.
+
+__(C - D)__ Frequencies of self-reported complete convalescence (__B__) and symptom relapse (__C__) in the PASC participant subsets. Statistical significance was assessed by $\chi^2$ test. Raw and multiple testing-adjusted significance (pFDR) p values are presented in the plot captions.
 
 TY: Tyrol, STY: South Tyrol.
 

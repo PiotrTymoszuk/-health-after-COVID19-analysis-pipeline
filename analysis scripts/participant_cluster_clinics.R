@@ -15,10 +15,11 @@
     filter(cluster_characteristic == 'yes') %>% 
     .$variable
   
-  part_clinics$variables$numeric <- c('mental_health_score', 
+  part_clinics$variables$numeric <- c('sum_symptoms_acute',
+                                      'perf_impairment', 
                                       'life_quality_score', 
-                                      'stress_score', 
-                                      'perf_impairment')
+                                      'mental_health_score',
+                                      'stress_score')
   
   part_clinics$variables$factor <- part_clinics$variables_all[!part_clinics$variables_all %in% part_clinics$variables$numeric]
   
@@ -104,27 +105,21 @@
   ## plotting table
   
   part_clinics$numeric_plot$plotting_tbl <- part_clinics$analysis_tbl %>% 
-    map(select, clust_id, all_of(part_clinics$variables$numeric)) %>% 
+    map(select, clust_id, perf_impairment, life_quality_score, mental_health_score, stress_score) %>% 
     map(gather, 
         key = 'phenotype', 
         value = 'count', 
-        all_of(part_clinics$variables$numeric)) %>% 
+        perf_impairment, life_quality_score, mental_health_score, stress_score) %>% 
     map(mutate, 
-        phenotype = factor(phenotype, 
-                           c('perf_impairment', 
-                             'life_quality_score', 
-                             'mental_health_score', 
-                             'stress_score')))
+        phenotype = factor(phenotype, levels = part_clinics$variables$numeric))
 
   ## FDR p value labels
   
   part_clinics$numeric_plot$p_values <- part_clinics$test_numeric %>%
+    map(filter, 
+        variable %in% c('perf_impairment', 'life_quality_score', 'mental_health_score', 'stress_score')) %>% 
     map(mutate, 
-        phenotype = factor(variable, 
-                           c('perf_impairment', 
-                             'life_quality_score', 
-                             'mental_health_score', 
-                             'stress_score'))) %>% 
+        phenotype = factor(variable, levels = part_clinics$variables$numeric)) %>% 
     map(arrange, phenotype) %>% 
     map(~.x$p_lab)
   
@@ -176,6 +171,37 @@
                                       map(~.x$p_lab), 
                                     function(plot, p_lab) list(x = plot, y = p_lab) %>% 
                                       pmap(function(x, y) x + labs(subtitle = y)))
+  
+# Plotting the numbers of acute symptoms in the clusters -----
+  
+  insert_msg('Plotting the numbers of acute symptoms in the clusters')
+  
+  ## base plots
+  
+  part_clinics$acute_covid_plots <- part_clinics$analyses_numeric %>% 
+    map(~.x$sum_symptoms_acute) %>%
+    map(plot_analysis, 
+         fill_colors = part_clust$clust_colors, 
+         cust_theme = globals$common_theme, 
+         y_lab = translate_var('sum_symptoms_acute', out_value = 'label_short'))
+  
+  ## appending with FDR p values
+  
+  part_clinics$acute_covid_plots <- part_clinics$test_numeric %>% 
+    map_dfr(filter, variable == 'sum_symptoms_acute') %>% 
+    mutate(p_lab = paste0('pFDR = ', signif(p_adj, 2), 
+                          ', p = ', signif(p_value, 2)), 
+           p_lab = ifelse(significant == 'yes', 
+                          p_lab, 
+                          paste0('ns (', p_lab, ')'))) %>% 
+    .$p_lab %>% 
+    map2(part_clinics$acute_covid_plots, ., 
+         ~.x + labs(subtitle = .y)) %>% 
+    map2(., c('TY: long COVID subsets', 
+              'STY: long COVID subsets', 
+              'TY: PASC subsets', 
+              'STY: PASC subsets'), 
+         ~.x + labs(title = .y))
   
 # END -----
   

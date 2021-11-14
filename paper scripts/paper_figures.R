@@ -140,32 +140,40 @@
                                                 make_fct_panel(part_clinics$factor_plots$north$bmi_class_before, 
                                                                part_clinics$factor_plots$south$bmi_class_before), 
                                                 make_fct_panel(part_clinics$factor_plots$north$multi_morbidity, 
-                                                               part_clinics$factor_plots$south$multi_morbidity), 
-                                                make_fct_panel(part_clinics$factor_plots$north$therapy_home_antibiotic, 
-                                                               part_clinics$factor_plots$south$therapy_home_antibiotic, 
+                                                               part_clinics$factor_plots$south$multi_morbidity, 
                                                                show_tag = TRUE), 
-                                                nrow = 4, 
+                                                nrow = 3, 
                                                 labels = LETTERS, 
                                                 label_size = 10) %>% 
     as_figure_object(figure_label = 'figure_7_long_covid_clinics', 
                      w = 180, 
-                     h = 220)
+                     h = 180)
   
 # Figure 8: recovery features in the long COVID-19 participant clusters -----
   
   insert_msg('Figure 8: recovery features in the long COVID-19 subsets')
   
-  paper_figures$long_covid_recovery$top_panel <- plot_grid(part_clinics$numeric_plot$plots$north + 
-                                                             theme(legend.position = 'none'), 
-                                                           part_clinics$numeric_plot$plots$south + 
-                                                             theme(legend.position = 'none'), 
-                                                           ncol = 2, 
+  paper_figures$long_covid_recovery$top_panel <- plot_grid(part_clinics$acute_covid_plots$north + 
+                                                             theme(legend.position = 'none', 
+                                                                   axis.text.x = element_blank()), 
+                                                           part_clinics$acute_covid_plots$south + 
+                                                             theme(legend.position = 'none', 
+                                                                   axis.text.x = element_blank()), 
+                                                           get_legend(part_clust$pca_plots$north$chronic), 
+                                                           ncol = 3, 
                                                            align = 'hv', 
-                                                           axis = 'tblr') %>% 
-    plot_grid(get_legend(part_clust$pca_plots$north$chronic + 
-                           theme(legend.position = 'bottom')), 
-              nrow = 2, 
-              rel_heights = c(0.85, 0.15))
+                                                           axis = 'tblr', 
+                                                           rel_widths = c(0.4, 0.4, 0.2))
+
+  paper_figures$long_covid_recovery$middle_panel <- plot_grid(part_clinics$numeric_plot$plots$north + 
+                                                                theme(legend.position = 'none', 
+                                                                      plot.tag = element_blank()), 
+                                                              part_clinics$numeric_plot$plots$south + 
+                                                                theme(legend.position = 'none', 
+                                                                      plot.tag = element_blank()), 
+                                                              ncol = 2, 
+                                                              align = 'hv', 
+                                                              axis = 'tblr')
   
   paper_figures$long_covid_recovery$bottom_panel <- plot_grid(make_fct_panel(part_clinics$factor_plots$north$complete_covelescence, 
                                                                              part_clinics$factor_plots$south$complete_covelescence, 
@@ -173,21 +181,19 @@
                                                               make_fct_panel(part_clinics$factor_plots$north$relapse, 
                                                                              part_clinics$factor_plots$south$relapse, 
                                                                              show_legend = FALSE), 
-                                                              make_fct_panel(part_clinics$factor_plots$north$hair_loss, 
-                                                                             part_clinics$factor_plots$south$hair_loss, 
-                                                                             show_legend = FALSE), 
-                                                              nrow = 3, 
-                                                              labels = LETTERS[-1], 
+                                                              nrow = 2, 
+                                                              labels = c('C', 'D'), 
                                                               label_size = 10) %>% 
     plot_grid(get_legend(part_clinics$factor_plots$north$complete_covelescence), 
               ncol = 2, 
               rel_widths = c(2, 0.3))
   
   paper_figures$long_covid_recovery <- plot_grid(paper_figures$long_covid_recovery$top_panel, 
+                                                 paper_figures$long_covid_recovery$middle_panel, 
                                                  paper_figures$long_covid_recovery$bottom_panel, 
-                                                 nrow = 2, 
-                                                 rel_heights = c(0.4, 0.6), 
-                                                 labels = c('A', ''), 
+                                                 nrow = 3, 
+                                                 rel_heights = c(0.3, 0.4, 0.6), 
+                                                 labels = c('A', 'B', ''), 
                                                  label_size = 10) %>% 
     as_figure_object(figure_label = 'figure_8_long_covid_recovery', 
                      w = 180, 
@@ -410,32 +416,38 @@
                                           make_fct_panel(part_clinics$factor_plots$north_pasc$bmi_class_before, 
                                                          part_clinics$factor_plots$south_pasc$bmi_class_before), 
                                           make_fct_panel(part_clinics$factor_plots$north_pasc$multi_morbidity, 
-                                                         part_clinics$factor_plots$south_pasc$multi_morbidity), 
-                                          make_fct_panel(part_clinics$factor_plots$north_pasc$therapy_home_antibiotic, 
-                                                         part_clinics$factor_plots$south_pasc$therapy_home_antibiotic, 
+                                                         part_clinics$factor_plots$south_pasc$multi_morbidity, 
                                                          show_tag = TRUE), 
-                                          nrow = 4, 
+                                          nrow = 3, 
                                           labels = LETTERS, 
                                           label_size = 10) %>% 
     as_figure_object(figure_label = 'figure_S12_pasc_clinics', 
                      w = 180, 
-                     h = 220)
+                     h = 180)
   
 # Figure S13: recovery features in the PASC participant clusters -----
   
   insert_msg('Figure S13: recovery features in the PASC subsets')
   
-  suppl_figures$pasc_recovery$top_panel <- plot_grid(part_clinics$numeric_plot$plots$north_pasc + 
-                                                       theme(legend.position = 'none'), 
-                                                     part_clinics$numeric_plot$plots$south_pasc + 
-                                                       theme(legend.position = 'none'), 
-                                                     ncol = 2, 
+  suppl_figures$pasc_recovery$top_panel <- plot_grid(part_clinics$acute_covid_plots$north_pasc + 
+                                                       theme(legend.position = 'none', 
+                                                             axis.text.x = element_blank()), 
+                                                     part_clinics$acute_covid_plots$south_pasc + 
+                                                       theme(legend.position = 'none', 
+                                                             axis.text.x = element_blank()), 
+                                                     get_legend(part_clust$pca_plots$north$chronic), 
+                                                     ncol = 3, 
                                                      align = 'hv', 
-                                                     axis = 'tblr') %>% 
-    plot_grid(get_legend(part_clust$pca_plots$north$chronic + 
-                           theme(legend.position = 'bottom')), 
-              nrow = 2, 
-              rel_heights = c(0.85, 0.15))
+                                                     axis = 'tblr', 
+                                                     rel_widths = c(0.4, 0.4, 0.2))
+  
+  suppl_figures$pasc_recovery$middle_panel <- plot_grid(part_clinics$numeric_plot$plots$north_pasc + 
+                                                          theme(legend.position = 'none'), 
+                                                        part_clinics$numeric_plot$plots$south_pasc + 
+                                                          theme(legend.position = 'none'), 
+                                                        ncol = 2, 
+                                                        align = 'hv', 
+                                                        axis = 'tblr')
   
   suppl_figures$pasc_recovery$bottom_panel <- plot_grid(make_fct_panel(part_clinics$factor_plots$north_pasc$complete_covelescence, 
                                                                        part_clinics$factor_plots$south_pasc$complete_covelescence, 
@@ -443,28 +455,23 @@
                                                         make_fct_panel(part_clinics$factor_plots$north_pasc$relapse, 
                                                                        part_clinics$factor_plots$south_pasc$relapse, 
                                                                        show_legend = FALSE), 
-                                                        make_fct_panel(part_clinics$factor_plots$north_pasc$hair_loss, 
-                                                                       part_clinics$factor_plots$south_pasc$hair_loss, 
-                                                                       show_legend = FALSE), 
-                                                        nrow = 3, 
-                                                        labels = LETTERS[-1], 
+                                                        nrow = 2, 
+                                                        labels = c('C', 'D'), 
                                                         label_size = 10) %>% 
     plot_grid(get_legend(part_clinics$factor_plots$north_pasc$complete_covelescence), 
               ncol = 2, 
               rel_widths = c(2, 0.3))
   
   suppl_figures$pasc_recovery <- plot_grid(suppl_figures$pasc_recovery$top_panel, 
+                                           suppl_figures$pasc_recovery$middle_panel,
                                            suppl_figures$pasc_recovery$bottom_panel, 
-                                           nrow = 2, 
-                                           rel_heights = c(0.4, 0.6), 
-                                           labels = c('A', ''), 
+                                           nrow = 3, 
+                                           rel_heights = c(0.3, 0.4, 0.6), 
+                                           labels = c('A', 'B', ''), 
                                            label_size = 10) %>% 
     as_figure_object(figure_label = 'figure_S13_pasc_recovery', 
                      w = 180, 
                      h = 230)
-  
-  
-  
   
 # Figure S14: univariate modeling -----
   
