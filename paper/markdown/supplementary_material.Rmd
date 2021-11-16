@@ -48,7 +48,7 @@ The bi-national 'Health after COVID-19 in Tyrol' study (ClinicalTrials.gov: NCT0
 
 Analysis exclusion criteria in this report were hospitalization because of SARS-CoV-2 infection and the observation time (SARS-CoV-2 test to survey completion) of less than 28 days. Additionally, phenotyping of post-acute sequelae of COVID-19 (PASC) was done with the subsets of the original cohort including the participants with a minimal observation time of 90 days. The scheme of study and analysis inclusion is provided in __Figure 1__.
 
-The study was performed in accordance with the Declaration of Helsinki and the European Data Policy. Digital informed consent was obtained from each participant at the survey start. The study protocols were approved by the institutional review boards of the Medical University of Innsbruck (Tyrol, approval number: 1257/2020) and of the Autonomous Province of South Tyrol/Alto Adige (South Tyrol, approval number: 0150701).
+The study was performed in accordance with the Declaration of Helsinki and the European Data Policy. Digital informed consent was obtained from each participant at the survey start. The study protocols were approved by the institutional review boards of the Medical University of Innsbruck (Tyrol, approval number: 1257/2020) and of the Autonomous Province of South Tyrol/Bolzano (South Tyrol, approval number: 0150701).
 
 ## Measures
 
@@ -89,7 +89,7 @@ By this means, two phenotypes of acute COVID-19 (NIP: non-specific infection phe
 
 ### Subsets of long COVID and PASC individuals
 
-Association of subjects suffering from long COVID or PASC in respect to the numbers of MOP, FAP and HAP symptoms was explored with pairwise Manhattan distances (function _distance()_, package _philentropy_) [@Drost2018] and DBSCAN clustering algorithm (function _dbscan()_, package _dbscan_) [@Ester1996]. The minPts argument was set to five based on the $>2^{data\:dimension}$ rule. The decision on the optimal $\epsilon$ parameter value was guided by inspection of the 4 nearest neighbor (4-NN) distance plot (__Supplementary Figure \@ref(fig:fig-part-diagnostic)A__). The optimal $\epsilon$ value was defined as the 4-NN value preceding the steep increase of the 4-NN distance [@Belyadi2016].
+Association of subjects suffering from long COVID or PASC in respect to the numbers of MOP, FAP and HAP symptoms was explored with pairwise Manhattan distances (function _distance()_, package _philentropy_) [@Drost2018] and DBSCAN clustering algorithm (function _dbscan()_, package _dbscan_) [@Ester1996; @Hahsler2019]. The minPts argument was set to five based on the $>2^{data\:dimension}$ rule. The decision on the optimal $\epsilon$ parameter value was guided by inspection of the 4 nearest neighbor (4-NN) distance plot (__Supplementary Figure \@ref(fig:fig-part-diagnostic)A__). The optimal $\epsilon$ value was defined as the 4-NN value preceding the steep increase of the 4-NN distance [@Belyadi2016].
 
 Definition of participant clusters, further termed 'participant subsets', was done in the training Tyrol cohort. Three participant subsets were identified in long COVID and PASC each: HAP-negative (HAP-), HAP intermediate (HAPi), HAP high (HAP+), termed after on the count of hyposmia/anosmia phenotype symptoms. The subset assignment in the test South Tyrol (STY) cohort was done with k-nearest-neighbor (k = 20 - 50) label propagation algorithm with $dist^{-1}$ kernel-weighted voting [@Glennan2016; @Lelis2009; @Leng2014].
 The general clustering tendency in the training and test cohort was determined with Hopkins statistic 
@@ -444,7 +444,7 @@ suppl_figures$pasc_clinics$plot
 
 ```
 
-__Supplementary Figure \@ref(fig:fig-part-clinic). The most relevant demographic and clinical features of the PASC participant subsetss.__
+__Supplementary Figure \@ref(fig:fig-part-clinic). The most relevant demographic and clinical features of the PASC participant subsets.__
 
 Differences in demographic and clinical features (__Supplementary Table \@ref(tab:tab-subset-clinic)__) between the hypo/anosmia-negative (HAP-), intermediate (HAPi) and high (HAP+) subsets of long COVID individuals were investigated by $\chi^2$ test. Comparison results for the most differentiating features: sex (__A__), body mass index class (__B__), number of comorbidities (__C__) and antibiotic therapy during acute COVID-19 (__D__) are presented. Raw and multiple testing-adjusted significance (pFDR) p values are presented in the plot captions. Numbers of subset individuals are indicated under the plots. TY: Tyrol, STY: South Tyrol.
 
@@ -458,7 +458,7 @@ suppl_figures$pasc_recovery$plot
 
 __Supplementary Figure \@ref(fig:fig-part-recovery). Acute symptom count, rating of physical, quality of life and mental impairment in the PASC participant subsets.__
 
-__(A)__ Numbers (#) of acute COVID-19 symptoms in the hypo/anosmia-negative (HAP-), intermediate (HAPi) and high (HAP+) subsets of PASC individuals. Statistical significance was assessed with Kruskal-Wallis test. aw and multiple testing-adjusted significance (pFDR) p values are presented in the plot captions. Numbers of subset individuals are indicated under the plots.
+__(A)__ Numbers (#) of acute COVID-19 symptoms in the hypo/anosmia-negative (HAP-), intermediate (HAPi) and high (HAP+) subsets of PASC individuals. Statistical significance was assessed with Kruskal-Wallis test. Raw and multiple testing-adjusted significance (pFDR) p values are presented in the plot captions. Numbers of subset individuals are indicated under the plots.
 
 __(B)__ Minimum/maximum-normalized scores of physical performance (phys. imp), quality of life (QoL), overall mental health (OMH) impairment and stress in the subsets of PASC individuals. Statistical significance was assessed with Kruskal-Wallis test. Multiple testing-adjusted significance are presented in the plots.
 

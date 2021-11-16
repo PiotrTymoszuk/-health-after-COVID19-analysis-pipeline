@@ -208,8 +208,8 @@
         m_variable = '.fitted', 
         d_variable = 'y',
         marker_variable = 'cohort', 
-        cutoffs.at = 0.5, 
-        labelsize = 2.75) %>% 
+        labels = FALSE, 
+        pointsize = 0) %>% 
     map(~.x + 
           scale_color_manual(values = globals$cohort_colors, 
                              labels = globals$cohort_labs) + 

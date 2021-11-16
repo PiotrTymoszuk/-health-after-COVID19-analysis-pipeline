@@ -156,7 +156,7 @@
              ~mutate(.x, `Time point` = .y)) %>% 
     mutate(Phenotype = car::recode(Phenotype, 
                                    "'MOP' = 'Multi-Organ Phenotype (MOP)'; 
-                                   'NIP' = 'Non-specific Inferion Phenotype (NIP)'; 
+                                   'NIP' = 'Non-specific Infection Phenotype (NIP)'; 
                                    'FAP' = 'Fatigue Phenotype (FAP)'; 
                                    'HAP' = 'Hyposmia/Anosmia Phenotype (HAP)'")) %>% 
     select(`Time point`, 

@@ -444,7 +444,7 @@
                                    label = NULL, 
                                    y_lab = '% complete answers', x_lab = NULL, legend_title = NULL, 
                                    labeller = NULL, fill_colors = NULL, pie = T, 
-                                   cust_theme = NULL) {
+                                   cust_theme = NULL, show_zero = FALSE) {
     
     ## makes a bar or pie plot for the analysis object
     
@@ -474,6 +474,14 @@
       map(mutate, 
           plot_lab = if(!pie) signif(percent, signif_digits) else paste(signif(percent, signif_digits), '%', sep = ''), 
           plot_y = cumsum(percent) - 0.5*percent)
+    
+    if(!show_zero) {
+      
+      plotting_tbl <- plotting_tbl %>% 
+        map(mutate, 
+            plot_lab = ifelse(plot_lab == 0 | plot_lab == '0%', NA, plot_lab))
+      
+    }
     
     if(is.null(labeller)) {
       

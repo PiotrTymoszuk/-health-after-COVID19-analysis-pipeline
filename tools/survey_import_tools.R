@@ -538,10 +538,10 @@
              bmi_recent = weigth_recent/(height/100) ^ 2, 
              bmi_class_before = cut(bmi_before, 
                                     c(-Inf, 25, 30, Inf), 
-                                    c('normal', 'overweigth', 'obesity')), 
+                                    c('normal', 'overweight', 'obesity')), 
              bmi_class_recent = cut(bmi_recent, 
                                     c(-Inf, 25, 30, Inf), 
-                                    c('normal', 'overweigth', 'obesity'))) %>%
+                                    c('normal', 'overweight', 'obesity'))) %>%
       mutate(employment_before = car::recode(employment_before, 
                                              "'Ja' = 'employed'; 
                                                'Nein' = 'unemployed'; 

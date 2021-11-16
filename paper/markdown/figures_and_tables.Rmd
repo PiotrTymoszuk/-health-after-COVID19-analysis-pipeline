@@ -60,11 +60,11 @@ paper_figures$symptom_sum$plot
 
 __Figure \@ref(fig:fig-symptom-sum). Kinetic of symptom resolution.__
 
-__(A)__ Percents of symptomatic participants in time. Statistical significance was determined by $\chi^2$ test for trend. P values are shown in the plot caption.
+__(A)__ Percentages of symptomatic participants in time. Statistical significance was determined by $\chi^2$ test for trend. P values are shown in the plot caption.
 
 __(B, C)__ Symptom number trajectories in the entire study cohorts (__B__) and in the subsets with or without long COVID. Thin gray lines: individual symptom number trajectories, thick color line: median symptom count, color ribbon: IQR. Statistical significance was determined by mixed-effect Poisson modeling. Model estimates ($\beta$) with 95% CI and p values are indicated in the plot.
 
-Numbers of complete cases are indicted under the plots. TY: Tyrol, STY: South Tyrol cohort.
+Numbers of complete cases are indicated under the plots. TY: Tyrol, STY: South Tyrol cohort.
 
 
 \newpage
@@ -119,7 +119,7 @@ paper_figures$long_covid_subsets$plot
 
 __Figure \@ref(fig:fig-part-clust). Subsets of long COVID individuals defined by HAP, FAP and MOP phenotype symptoms.__
 
-Hypo/anosmia-negative (HAP-), intermediate (HAPi) and high (HAP+) subsets of long COVID individuals were defined in the training Tyrol (TY) cohort with Manhattan distance and DBSCAN clustering according to the counts of hypo/anosmia (HAP), fatigue (FAP) and multi-organ phenotype (MOP) symptoms. The subset assignment in the test South Tyrol (STY) cohort was done with k-nearest-neighbor label propagation algorithm.
+Hypo/anosmia-negative (HAP-), intermediate (HAPi) and high (HAP+) subsets of long COVID individuals were defined in the training Tyrol (TY) cohort with Manhattan distance and DBSCAN clustering according to the counts of hypo/anosmia (HAP), fatigue (FAP) and multi-organ phenotype (MOP) symptoms. The subset assignment in the test South Tyrol (STY) cohort was done with the k-nearest-neighbor label propagation algorithm.
 
 __(A)__ Two-dimensional principal component analysis (PCA) score plot with the long COVID participant subset assignment. Percent variances associated with principal components (PC) are indicated in the plot axes. Numbers of subset individuals are indicated under the plots.
 
@@ -151,7 +151,7 @@ paper_figures$long_covid_recovery$plot
 
 __Figure \@ref(fig:fig-part-recovery). Acute symptom count, rating of physical, quality of life and mental impairment in the long COVID participant subsets.__
 
-__(A)__ Numbers (#) of acute COVID-19 symptoms in the hypo/anosmia-negative (HAP-), intermediate (HAPi) and high (HAP+) subsets of long COVID individuals. Statistical significance was assessed with Kruskal-Wallis test. aw and multiple testing-adjusted significance (pFDR) p values are presented in the plot captions. Numbers of subset individuals are indicated under the plots.
+__(A)__ Numbers (#) of acute COVID-19 symptoms in the hypo/anosmia-negative (HAP-), intermediate (HAPi) and high (HAP+) subsets of long COVID individuals. Statistical significance was assessed with Kruskal-Wallis test. Raw and multiple testing-adjusted significance (pFDR) p values are presented in the plot captions. Numbers of subset individuals are indicated under the plots.
 
 __(B)__ Minimum/maximum-normalized scores of physical performance (phys. imp), quality of life (QoL), overall mental health (OMH) impairment and stress in the subsets of long COVID individuals. Statistical significance was assessed with Kruskal-Wallis test. Multiple testing-adjusted significance are presented in the plots.
 

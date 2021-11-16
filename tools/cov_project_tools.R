@@ -531,17 +531,28 @@
    make_fct_panel <- function(plot_north, 
                               plot_south, 
                               show_tag = FALSE, 
-                              show_legend = TRUE) {
+                              show_legend = TRUE, 
+                              lower = TRUE) {
       
       ## makes a panel with two factor plots
+      
+      if(lower) {
+         
+         txt_transf <- tolower
+         
+      } else {
+         
+         txt_transf <- identity
+         
+      }
       
       if(show_tag) {
          
          panel <- plot_grid(plot_north + 
-                               labs(title = paste('TY:', tolower(plot_north$labels$title))) + 
+                               labs(title = paste('TY:', txt_transf(plot_north$labels$title))) + 
                                theme(legend.position = 'none'), 
                             plot_south + 
-                               labs(title = paste('STY:', tolower(plot_south$labels$title))) + 
+                               labs(title = paste('STY:', txt_transf(plot_south$labels$title))) + 
                                theme(legend.position = 'none'), 
                             ncol = 2, 
                             align = 'hv', 
@@ -550,11 +561,11 @@
       } else {
          
          panel <- plot_grid(plot_north + 
-                               labs(title = paste('TY:', tolower(plot_north$labels$title))) + 
+                               labs(title = paste('TY:', txt_transf(plot_north$labels$title))) + 
                                theme(legend.position = 'none', 
                                      plot.tag = element_blank()), 
                             plot_south + 
-                               labs(title = paste('STY:', tolower(plot_south$labels$title))) + 
+                               labs(title = paste('STY:', txt_transf(plot_south$labels$title))) + 
                                theme(legend.position = 'none', 
                                      plot.tag = element_blank()), 
                             ncol = 2, 
@@ -757,6 +768,8 @@
                                   plot_lab, 
                                   paste(plot_lab, level, sep = ': ')), 
                 plot_lab = stri_replace(plot_lab, fixed = '...', replacement = ' - '), 
+                plot_lab = stri_replace(plot_lab, fixed = '3.and.more', replacement = '3 and more'),
+                plot_lab = stri_replace(plot_lab, fixed = 'middle.aged', replacement = 'middle-aged'), 
                 new_est = eval(call2(est_trans, estimate)))
       
       if(!show_intercept) {
