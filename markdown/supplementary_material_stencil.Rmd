@@ -1,0 +1,573 @@
+---
+title: "Phenotyping of acute and persistent COVID-19 features in the outpatient setting: exploratory analysis of an international cross-sectional online survey"
+subtitle: "Supplementary Material"
+author: "Health after COVID-19 in Tyrol study team"
+date: "`r format(Sys.time(), '%Y-%m-%d')`"
+
+output: 
+  pdf_document:
+    latex_engine: xelatex
+bibliography: cov_biblio.bib
+csl: clinical-infectious-diseases.csl
+header-includes:
+  \usepackage{longtable}
+  \usepackage{tabu}
+  \usepackage{caption}
+  \usepackage{makecell}
+  \usepackage{pdflscape}
+  \usepackage{array}
+  \usepackage{booktabs}
+  \usepackage{threeparttable}
+  \usepackage{threeparttablex}
+  \usepackage{wrapfig}
+  \usepackage{multirow}
+  \usepackage[normalem]{ulem}
+  \usepackage{colortbl}
+  \usepackage{xcolor}
+  \usepackage{float} \floatplacement{figure}{H}\floatplacement{table}{H}
+  \newcommand{\beginsupplement}{\setcounter{table}{0}  \renewcommand{\thetable}{S\arabic{table}}       \setcounter{figure}{0} \renewcommand{\thefigure}{S\arabic{figure}}}
+---
+
+```{r, setup, include = FALSE}
+
+library(bookdown)
+
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, dev = "cairo_pdf")
+
+
+```
+
+\newpage
+\beginsupplement
+
+# Supplementary Methods
+
+## Study design and participants
+
+The study 'Health after COVID-19 in Tyrol' (ClinicalTrials.gov: NCT04661462) was conducted as an bi-national cooperation project between two regions: Tyrol, the first major COVID-19 hotspot in Austria, and the Italian province South Tyrol. Between 30^th^ September 2020 and 5^th^ July 2021, COVID-19 convalescents recovering from SARS-CoV2 infection confirmed by nasal or oral swab PCR or blood antibody test were invited to participate in an anonymized, cross-sectional web-based survey [@Holzner2012] via public media call or contact with a physician. Residence in the study regions and age $\geq$ 16 (Tyrol) or $\geq$ 18 years (South Tyrol) were additional study inclusion criteria.
+
+Analysis exclusion criteria in this report were hospitalization because of SARS-CoV2 infection and the survey completion at less than 28 days after SARS-CoV-2 infection was diagnosed. Additionally, phenotyping of post-acute sequelae SARS-CoV-2 infection (PASC) symptoms and participant subsets was done with the subsets of the original cohort including the participants with a minimal observation time of 90 days and more. The scheme of participant inclusion in the study analysis is provided in __Figure 1__.
+
+The study was performed in accordance with the Declaration of Helsinki and the European Data Policy. Digital informed consent was obtained from each participant at the survey start. The study protocols were approved by the institutional review boards of the Medical University of Innsbruck (approval number: 1257/2020) and of the Autonomous Province of South Tyrol/Alto Adige (approval number: 0150701).
+
+## Measures
+
+The study questionnaire was developed by a multidisciplinary team (infectious disease specialists, pneumologists, internists, neurologists, psychiatrists, dermatologists, general practitioners, public health and rehabilitation physicians). The survey recorded information on demographics (age, sex, height, weight before infection), socioeconomic status (education, profession, employment status, residence, household size), pre-existing comorbidities (`r globals$comorb %>% length` items), smoking history, daily medication (quantity, major drug types), course of acute SARS-CoV infection (contact with an infected individual, incubation time, quarantine duration, contact with authorities and physicians), presence and duration of COVID-19-associated symptoms (`r globals$symptoms %>% length` items), illness perception, symptom relapse as well as psychosocial health and physical constitution of during COVID-19 convalescence. Study variables with their descriptions are listed in __Supplementary Table \@ref(tab:tab-study-variables)__. Baseline demographic, socioeconimic and clinical characteristic of the study populations is presented in __Table 1__. Features of acute COVID-19 course in both study cohorts are presented in __Table 2__. Post-acute characteristic of the study populations is shown in __Table 3__. ## Pause
+
+## Definitions and variable stratification
+
+Respondents were asked to retrospectively assign the presence and duration classes of acute symptoms (absent, present for 1 - 3 days, up to 1 week, up to 2 weeks, up to 4 weeks, up to 3 months, up to 6 months and > 6 months). The surveyed symptoms were classified as (1) acute, when present in the first two weeks after clinical onset, (2) sub-acute when present two to four weeks after clinical onset and (3) persistent when lasting for four weeks or longer. Based on the self-reported symptom duration data, we calculated individual time intervals until symptom recovery.
+
+Symptom relapse after the initial resolution, subjective convalescence and need for rehabilitation were surveyed with as a one question item each. Illness perception was queried as 'cold-like', 'flu-like', 'gastroenteritis-like' or 'not experienced before/other'. Assessment of physical performance impairment at the time of study completion compared to the time before COVID-19 was based on participants´ subjective estimate stratified as no impairment (0%), $\leq$ 25%, $\leq$ 50%,  $\leq$ 75% and > 75% of performance loss. 
+
+For modeling tasks, the count of all acute symptoms as well as acute symptoms assigned to the particular phenotypes was stratified by quartiles as presented in __Supplementary Table \@ref(tab:tab-sypt-sum)__. Participant's age was stratified with the 30 and 65 y cut-points (young: 0 - 30, middle aged: 31 - 65, elderly: 66 years and more). For the detailed variable stratification scheme, refer to __Supplementary Table \@ref(tab:tab-study-variables)__.
+
+## Statistical analysis
+
+### Data transformation and visualization
+
+Self-reported demographic, biometric, symptom and follow-up data were analyzed and visualized with R programming suite (version 4.0.3) and _tidyverse_ environment [@Wickham2019]. Visualization of the data, modeling and clustering results was done with packages _ggplot2_ [@Wickham2016], _cowplot_ [@Wilke2019], _ggvenn_ and _plotROC_ [@Sachs2017]. The entire R analysis pipeline is available at https://github.com/PiotrTymoszuk/health-after-COVID19-analysis-pipeline.
+
+### Descriptive statistic and hypothesis testing
+
+For assessing statistical significance for changes in variable strata frequency or symptom prevalence in time, $\chi^2$ test and $\chi^2$ test for trend were applied. To compare differences in medians of numeric variables, Mann-Whitney U test and Kruskal-Wallis test were used, as appropriate for the group number. The R functions used for descriptive statistic and hypothesis testing are available at https://github.com/PiotrTymoszuk/analysis_tools. If not indicated otherwise, p values were corrected for multiple testing with Benjamini-Hochberg method [@Benjamini1995].
+
+### Symptom kinetics modeling
+
+In symptom burden modeling, only the participants with the complete set of symptom answers were included. To model kinetics of individual symptom count contraction as a function of time after clinical onset in the entire study cohorts mixed-effect generalized linear modeling (GLM, fixed-effect: numeric time after clinical onset, random effect: participant, assumed residual distribution: Poisson, log link function) was applied with function _glmer()_ from _lme4_ package [@Bates2015].
+
+To compare symptom count resolution rates between the individuals suffering from persistent symptoms and the participants with complete symptom contraction till week four after clinical onset, analogical mixed-effect GLM approach was utilized (GLM, fixed-effects: numeric time after clinical onset, persistent symptom presence and the time:persistent symptom presence interaction, random effect: participant, assumed residual distribution: Poisson, log link function) [@Bates2015]. The value of exponentiated $\beta_{time}$ coefficient was interpreted as an estimate symptom resolution rate, the value of exponentiated $\beta{interaction}$ was assumed an estimate of symptom contraction rate between the participants with and without persistent symptoms. Estimate significance was assessed with two-sided T test and degrees of freedom calculated with Satterthwaite method.
+
+### Co-occurrence of symptoms and identification of disease phenotypes
+
+To investigate co-occurrence of acute and persistent symptoms of COVID-19 pairwise simple matching distances (SMD, function _smc()_, package _scrime_)[@Boriah2008] between the symptoms were subjected to clustering with PAM (partitioning around medoids, function _pam()_, package _cluster_) algorithm [@Schubert2019]. In each clustering task, only the participants with COVID-19 symptoms at the given time point (i.e. first two or four weeks or longer) were included. The decision on the optimal cluster number in each cohort was based on 'elbow' of the sums-of-square curve (function _fviz_nbclust()_, package _factoextra_, __Supplementary Figure \@ref(fig:acute-clustering)A__ and __Supplementary Figure \@ref(fig:long-clustering)A__). The R tools for clustering analysis are available at https://github.com/PiotrTymoszuk/cluster_tools.
+
+As presented in __Supplementary Figure \@ref(fig:acute-clustering)B__ and __Supplementary Figure \@ref(fig:long-clustering)B__, although the clustering structure was very similar in both study populations, the symptom cluster members differed slightly. To account for that, acute and persistent COVID-19 phenotypes were defined as the consensus set of symptoms assigned to the same cluster in both study cohorts. By this means, two phenotypes of acute (NIP: non-specific infection phenotype and MOP: multi-organ phanotype) and three phenotypes of persistent (HAP: hyposmia/anosmia phenotype, FAP: fatigue phenotype, MOP: multi-organ phenotype) COVID-19 symptoms were defined. 
+
+### Subsets of subjects suffering from persistent symptoms
+
+To identify diverse subsets of the study participants suffering from persistent COVID-19 symptoms, Manhattan distances (function _distance()_, package _philentropy_) [@Drost2018] between the affected individuals in respect to normalized sums of HAP (hyposmia/anosmia phenotype), FAP (fatigue phenotype) and MOP (multi-organ phenotype) symptoms were subjected to DBSCAN clustering (function _dbscan()_, package _dbscan_) [@Ester1996]. The minPts argument was set to five based on the $>2^{data\:dimension}$ rule. The decision on the optimal $\epsilon$ parameter value was guided by inspection of the 4 nearest neighbor (4-NN) distance plot (__Supplementary Figure \@ref(fig:participant-cluster-plots)A__). The optimal $\epsilon$ value was defined as the 4-NN value preceding the steep increase of the 4-NN distance [@Belyadi2016].
+
+For visualization of assignment of the analysis subjects to three identified subsets (HAP^neg^, HAP^int^, HAP^high^, based on the count of hyposmia/anosmia phenotype symptoms),the distance matrix was subjected to principal component analysis (PCA, function _PCAproj()_, package _pcaPP_) [@Croux2007] and the first two principal components were presented in the plot (__Supplementary Figure \@ref(fig:participant-cluster-plots)B__). The R tools for clustering analysis are available at https://github.com/PiotrTymoszuk/cluster_tools.
+
+### Uni-variate modeling
+
+Correlation of the candidate factors (__Supplementary Table \@ref(tab:tab-mod-variables)__) with the sum of acute COVID-19 symptoms, presence of persistent COVID-19 symptoms, symptom relapse after the initial resolution and over 50% physical performance loss following COVID-19 was assessed with a series of univariate generalized linear models (symptom sum: assumed Poisson distribution of residuals, log-link functon; remaining responses: logistic regression) was utilized. To account for the sex and age bias as compared with the general population of COVID-19 convalescents, frequency weights were implemented in the modeling procedure based on the publicly available age and sex distributions of the COVID-19 convalescent populations in Tyrol (https://covid19-dashboard.ages.at/dashboard.html, access on 13th^ July 2021) and Italy (https://www.epicentro.iss.it/coronavirus/bollettino/Bollettino-sorveglianza-integrata-COVID-19_7-luglio-2021.pdf, access on 13^th^ July 2021) for the Tyrol and South Tyrol study cohorts, respectively (__Supplementary Table \@ref(tab:tab-modeling-weights)__. To address possible recall bias caused by retrospective surveying of the acute COVID-19 course features, continuous numeric observation time variable (test to survey compltetion time) was inceluded in every model as a confounder.
+
+Significance of model estimates was determined by Wald Z test and p values were corrected for multiple comparisons with Benjamini-Hochberg method. Model quality and assumptions were checked by visual inspection of the residual plots. The tools used for serial modeling and model quality check are available at https://github.com/PiotrTymoszuk/lm_qc_tools. To obtain pooled $\beta$ estimates and their errors for the Tyrol and South Tyrol cohorts presented in the article text, the inverse variance method (function _metagen()_, package _meta_) was applied [@Borenstein2010;@Balduzzi2019].
+
+The numbers of significant factors shared between the responses and cohorts were visualized as an upset plot [@Conway2017].
+
+### LASSO modeling
+
+Identification of the most influential, independent factors associated with the presence of persistent COVID-19 symptoms, symptom relapse after the initial resolution and over 50% physical performance loss following COVID-19 was accomplished with LASSO (least absolute shrinkage and selection operator) 10-fold cross-validated generalized linear modeling (symptom sum responses: assumed Poisson distribution of residuals, log-link functon; remaining responses: logistic regression, function _cv.glmnet()_ from _glmnet_ package) [@Tibshirani1996; @Friedman2010].
+
+The initial pool of variables used in the LASSO model construction based largely on the candidate variables for univariate modeling (__Supplementary Table \@ref(tab:tab-mod-variables)__); however, two variables: 'Quality of support' and 'Contact to onset' were excluded due to over 30% missingness. To account for age and sex bias in the study populations, frequency weighting based was implemented in the models analogically to univariate modeling (__Supplementary Table \@ref(tab:tab-modeling-weights)__). 
+
+Model parameters were obtained for the lambda parameter set to 'lambda.1se' resulting in the output models with optimal regularization. Regression estimates of model co-variates with non-zero LASSO regression coeffcients were further analyzed and visualized. Measures of model fitness and error were derived from the cross-validated models using _assess.glmnet()_ function, pseudo R^2^ was calculated with the formula $pseudo-R^2=1 - deviance/null\:deviance$. Quality of model fit and assumptions were checked by visual inspection of the residual plots. The tools used for serial modeling and model quality check are available at https://github.com/PiotrTymoszuk/lasso_tools. 
+
+### Prediction of development of persistent symptoms, symptom relapse and major physical performance impairment following COVID-19
+
+To assess the ability of the LASSO models trained in the Tyrol cohort to predict development of persistent COVID-19 symptoms, symptom relapse and over 50% physical performance impairment following COVID-19 in the South Tyrol cohort, linear predictor scores (LPS) based on the models developed in the training cohort were calculated and the LPS prediction quality was assessed by receiver-operator characteristic (ROC) analysis with the functions from _Optimal.Cutpoints_ and _plotROC_ packages. The optimal LPS cutpoints were determined by Youden criterion. For LPS formulas, see: __Supplementary Table \@ref(tab:tab-score-formulas)__.
+
+# Data availability
+
+As this study is still ongoing, the data will be made available on a serious request and made publicly available after the completion. The entire R analysis pipeline is available at https://github.com/PiotrTymoszuk/health-after-COVID19-analysis-pipeline.
+
+
+\newpage
+
+# Supplementary Tables {#sec:tables}
+
+```{r tab-study-variables}
+
+suppl_tables$study_variables[1, 1] %>% 
+  mutate(`Variable name` = '') %>% 
+  kable(caption = '\\textbf{Variables queried directly and determined based on survey answers.}\\\\Variable name: full variable name, Variable short name: short variable name used for plot labeling, Unit: variable unit, Description: variable description, Cutpoints: cutoffs used for variable stratification, Levels: variable strata, Variable type: survey module.\\\\The table is available online.', 
+        format = 'latex', 
+        escape = T, 
+        booktabs = T, 
+        col.names = '') %>% 
+  kable_styling(full_width = F)
+
+```
+
+\newpage
+
+```{r tab-sypt-sum}
+
+suppl_tables$symptom_sum_strata %>% 
+  kable(caption = '\\textbf{Stratification of the acute symptom sum variables for modeling tasks}. \\\\#: number, NIP: non-specific infection phenotype, MOP: multi-organ phenotype.', 
+        format = 'latex', 
+        escape = T, 
+        booktabs = T) %>% 
+  collapse_rows(1, latex_hline = 'major',valign = 'middle') %>% 
+  kable_styling(full_width = F, 
+                latex_options = c('striped'))
+
+```
+
+\newpage
+
+```{r tab-sympt-frequency}
+
+suppl_tables$sympt_frequency[1, 1] %>% 
+  mutate(Cohort = '') %>% 
+  kable(caption = '\\textbf{Whole-cohort symptom prevalence and time changes of COVID-19 symptoms}\\\\Symptom frequency at the given time point (first two, two to four and four weeks or longer after symptom onset) was determined as a percent of the entire cohort. Statistical significance of the time change in symptom frequency was assessed by $\\chi^2$ test for trend and p values corrected for multiple comparisons with Benjamini-Hochberg method.\\\\Time point: time interval after symptom onset, N: number of cohort members with the symptom.\\\\The table is available online.', 
+        format = 'latex', 
+        escape = T, 
+        booktabs = T, 
+        col.names = '') %>% 
+  kable_styling(full_width = F)
+
+```
+
+\newpage
+
+```{r tab-phenotypes}
+
+suppl_tables$phenotypes %>% 
+  kable(caption = '\\textbf{Assignment of acute and persistent COVID-19 symptoms to the phenotypes.}\\\\imp.: impaired, dim.: diminished.', 
+        format = 'latex', 
+        escape = F, 
+        booktabs = T, 
+        longtable = T) %>% 
+  column_spec(1, width = '3cm', latex_valign = 'm') %>% 
+  column_spec(2, width = '3cm', latex_valign = 'm') %>% 
+  column_spec(3, width = '10cm') %>% 
+  collapse_rows(1, latex_hline = 'major',valign = 'middle') %>% 
+  kable_styling(full_width = F, 
+                latex_options = c('striped'), 
+                font_size = 9)
+
+```
+
+\newpage
+
+```{r tab-subset-clinic}
+
+suppl_tables$part_subsets_features %>% 
+  map_dfr(format_line)
+  kable(caption = '\\textbf{Demographic and clinical characteristic of the long COVID and PASC participant subsets.}\\\\HAP-: hypo/anosmia-negative, HAPi: hypo/anosmia intermediate, HAP+: hypo-anosmia high phenotype subset, Raw p: unadjusted p value obtained with $\\chi^2$ test, Adjusted p: p value adjusted for multiple testing with Benjamini-Hochberg method.', 
+        format = 'latex', 
+        escape = F, 
+        booktabs = T, 
+        longtable = T) %>% 
+  column_spec(1, width = '3cm') %>% 
+  column_spec(2, width = '3cm', latex_valign = 'm') %>% 
+  column_spec(3, width = '10cm') %>% 
+  collapse_rows(1:2, latex_hline = 'major',valign = 'middle') %>% 
+  kable_styling(full_width = F, 
+                latex_options = c('striped', 'repeat_header'), 
+                font_size = 9)
+
+```
+
+\newpage
+
+```{r tab-mod-variables}
+
+suppl_tables$candidate_factors %>% 
+  kable(caption = '\\textbf{Candidate variables in modeling tasks.}.', 
+        format = 'latex', 
+        escape = T, 
+        booktabs = T, 
+        longtable = T) %>% 
+  column_spec(1, width = '3cm', latex_valign = 'm') %>% 
+  column_spec(2, width = '3cm', latex_valign = 'm') %>% 
+  column_spec(3, width = '10cm') %>% 
+  collapse_rows(columns = 1) %>% 
+  kable_styling(full_width = F, 
+                latex_options = c('striped', 'repeat_header'), 
+                repeat_header_text = 'Continued', 
+                font_size = 9)
+
+```
+
+
+\newpage
+
+```{r tab-modeling-weights}
+
+suppl_tables$modeling_weights %>% 
+  kable(caption = '\\textbf{Weights applied to age and strata in modeling tasks.}.\\\\Frequency weights for each age and sex strata were based on the age and sex distribution of the general COVID-19 convalescent populations in Tyrol and Italy, for the Tyrol and South Tyrol study cohorts, respectively.\\\\Convalescents: number of convalescents in the given strata in the Tyrol or Italy population.', 
+        format = 'latex', 
+        escape = F, 
+        booktabs = T, 
+        longtable = T) %>% 
+  collapse_rows(columns = 1, latex_hline = 'major',valign = 'middle') %>% 
+  kable_styling(full_width = F, 
+                latex_options = c('striped'), 
+                font_size = 9)
+
+```
+
+\newpage
+
+```{r tab-uni-modeling}
+
+suppl_tables$uni_modeling_results[1, 1] %>% 
+  mutate(Cohort = '') %>% 
+  kable(caption = '\\textbf{Results of univariate modeling.}\\\\Correlation of candidate factors with the sum of acute COVID-19 symptoms (first two weeks after symptom onset), presence of persistent symptoms (four weeks or longer after the symptom onset), symptom relapse after the initial resolution and over 50$\\%$ physical performance loss following COVID-19 was investigated with a series of sex- and age-weighted ordinary generalized linear models (GLM) with inclusion of continuous observation time variable (test to completion interval) as a confounder. Estimate significances were obtained with Wald Z test and p values corrected for multiple comparisons with Benjamini-Hochberg method.\\\\The table is available online.', 
+        format = 'latex', 
+        escape = T, 
+        booktabs = T, 
+        col.names = '') %>% 
+  kable_styling(full_width = F)
+
+```
+
+\newpage
+
+```{r tab-uni-modeling-acute-pooled}
+
+suppl_tables$pooled_univariate_beta_acute %>% 
+  kable(caption = '\\textbf{Pooled univariate $\\beta$ estimates of the univariate acute symptom modeling for the risk factors presented in the text.}\\\\Pooled estimates of the univariate Poisson regression of the acute symptom number in the Tyrol and South Tyrol cohort were calculated with the inverse variance method. P values were corrected for multiple comparisons with Benjamini-Hochberg method.', 
+        format = 'latex', 
+        escape = T, 
+        booktabs = T) %>% 
+  kable_styling(full_width = F, 
+                latex_options = c('striped'))
+
+```
+
+\newpage
+
+```{r tab-uni-modeling-long-pooled}
+
+suppl_tables$pooled_univariate_beta_long %>% 
+  kable(caption = '\\textbf{Pooled univariate $\\beta$ estimates of the univariate long COVID feature modeling for the risk factors presented in the text.}\\\\Pooled estimates of the univariate logistic regression in the Tyrol and South Tyrol cohort were calculated with the inverse variance method. P values were corrected for multiple comparisons with Benjamini-Hochberg method.', 
+        format = 'latex', 
+        escape = T, 
+        booktabs = T, 
+        longtable = T) %>%  
+  column_spec(1, width = '3.5cm') %>% 
+  column_spec(2, width = '3.5cm') %>% 
+  column_spec(3:5, width = '1.5cm') %>%
+  column_spec(6, width = '2cm') %>% 
+  collapse_rows(columns = 1) %>%
+  kable_styling(full_width = F, 
+                latex_options = c('striped', 
+                                  'repeat_header'))
+
+```
+
+
+\newpage
+
+```{r tab-lasso-modeling}
+
+suppl_tables$lasso_modeling_results[1, 1] %>% 
+  mutate(Cohort = '') %>% 
+  kable(caption = '\\textbf{Results of LASSO modeling.}\\\\To identify independent factors correlating with the sum of acute COVID-19 symptoms (first two weeks after symptom onset), presence and sum of persistent symptoms (four weeks or longer after the symptom onset), symptom relapse after the initial resolution and over 50$\\%$ physical performance loss following COVID-19 was sex- and age-weighted LASSO generalized linear modeling was applied. Model co-variates with non-zero regression coefficients are presented.\\\\The table is available online.', 
+        format = 'latex', 
+        escape = T, 
+        booktabs = T, 
+        col.names = '') %>% 
+  kable_styling(full_width = F)
+
+```
+
+\newpage
+
+```{r tab-score-formulas}
+
+suppl_tables$score_formulas  %>% 
+  kable(caption = '\\textbf{Formulas of linear predictor scores developed with LASSO modeling in the Tyrol training cohort.}', 
+        format = 'latex', 
+        escape = T, 
+        booktabs = T) %>% 
+  column_spec(1, width = '3cm', latex_valign = 'm') %>% 
+  column_spec(2, width = '14cm') %>% 
+  kable_styling(full_width = F, 
+                latex_options = c('striped'), 
+                font_size = 9)
+
+```
+
+
+\newpage
+
+# Supplementary Figures {#sec:figures}
+
+```{r fig-frequencies-cohort, fig.width = mm_inch(suppl_figures$frequencies_cohort$w), fig.height = mm_inch(suppl_figures$frequencies_cohort$h), dpi = 600, fig.cap = 'Frequency of acute, sub-acute and persistent symptoms of COVID-19 in the entire study cohorts.'}
+
+suppl_figures$frequencies_cohort$plot
+
+```
+
+__Supplementary Figure \@ref(fig:fig-frequencies-cohort). Frequency of acute, sub-acute and persistent symptoms of COVID-19 in the entire study cohorts.__
+
+Symptom frequencies in the first two, two to four weeks and four weeks or longer after symptom onset were calculated as of the entire cohort. % within the entire cohort are presented as a bubble plot. Point size and color represents the percentage. Numbers of complete observations are indicated below the plot.
+
+Tired. day: tiredness at day, imp. conc.: impaired concentration, abd. pain: abdominal pain, imp. walk: impaired walk, dim. appetite = diminished appetite, imp.f.m.s: impaired fine motor skills, TY: Tyrol, STY: South Tyrol cohort.
+
+\newpage
+
+```{r top-10-symptoms, fig.width = mm_inch(suppl_figures$top_10_symptoms$w), fig.height = mm_inch(suppl_figures$top_10_symptoms$h), dpi = 600, fig.cap = 'Ten most frequent acute, sub-acute and persistent symptoms of COVID-19.'}
+
+suppl_figures$top_10_symptoms$plot
+
+```
+
+__Supplementary Figure \@ref(fig:top-10-symptoms). Ten most frequent acute, sub-acute and persistent symptoms of COVID-19.__
+
+Symptom frequencies were calculated as percentages of the individuals reporting at least one symptom in the first two, two to four weeks and four weeks or longer after symptom onset. Ten most frequent symptoms in the symptomatic subset are presented. Numbers of complete observations are indicated below the plot.
+
+Tired. day: tiredness at day, imp. conc.: impaired concentration, dim. appetite = diminished appetite, TY: Tyrol, South: STY cohort.
+
+\newpage
+
+
+```{r acute-clustering, fig.width = mm_inch(suppl_figures$acute_clustering$w), fig.height = mm_inch(suppl_figures$acute_clustering$h), dpi = 600, fig.cap = 'Definition of acute COVID-19 symptom phenotypes.'}
+
+suppl_figures$acute_clustering$plot
+
+```
+
+__Supplementary Figure \@ref(fig:acute-clustering). Definition of symptom phenotypes in acute COVID-19.__
+
+Simple matching distances between the symptoms of COVID-19 present in the first two weeks after symptom onset were subjected to clustering with PAM (partitioning around medoids) algorithm. Clusters of the same symptoms in both cohorts were termed consensus phenotypes. 
+
+__(A)__ Plots of total within-cluster sum of squares as a function of cluster number used to guide the decision on the optimal cluster count by the 'curve elbow' method. Dashed vertical lines represent the chosen numbers of acute symptom clusters.
+
+__(B)__ Numbers of symptoms assigned to clusters in each study cohort and common consensus clusters termed the non-specific infection phenotype (NIP) and the multi-organ phenotype (MOP) presented in Venn plots. Consensus symptoms assigned to each phenotype are listed next to the plot.
+
+Tired. day: tiredness at day, imp. conc.: impaired concentration, abd. pain: abdominal pain, imp. walk: impaired walk, dim. appetite: diminished appetite, imp.f.m.s: impaired fine motor skills, TY: Tyrol, STY: South Tyrol cohort.
+
+\newpage
+
+```{r long-clustering, fig.width = mm_inch(suppl_figures$long_clustering$w), fig.height = mm_inch(suppl_figures$long_clustering$h), dpi = 600, fig.cap = 'Definition of persistent COVID-19 symptom phenotypes.'}
+
+suppl_figures$long_clustering$plot
+
+```
+
+__Supplementary Figure \@ref(fig:long-clustering). Definition of persistent COVID-19 symptom phenotypes.__
+
+Simple matching distances between the symptoms of COVID-19 present for four weeks or longer symptom onset were subjected to clustering with PAM (partitioning around medoids) algorithm. Clusters of the same symptoms in both cohorts were termed consensus phenotypes. 
+
+__(A)__ Plots of total within-cluster sum of squares as a function of cluster number used to guide the decision on the optimal cluster count by the 'curve elbow' method. Dashed vertical lines represent the chosen numbers of persistent symptom clusters.
+
+__(B)__ Numbers of symptoms assigned to clusters in each study cohort and common consensus clusters termed the hyposmia/anosmia phenotype (HAP), fatigue phenotype (FAP) and the multi-organ phenotype (MOP) presented in Venn plots. Consensus symptoms assigned to each phenotype are listed next to the plot.
+
+Tired. day: tiredness at day, imp. conc.: impaired concentration, abd. pain: abdominal pain, imp. walk: impaired walk, dim. appetite: diminished appetite, imp.f.m.s: impaired fine motor skills. TY: Tyrol, STY: South Tyrol cohort.
+
+\newpage
+
+```{r participant-cluster-plots, fig.width = mm_inch(suppl_figures$participant_cluster_plots$w), fig.height = mm_inch(suppl_figures$participant_cluster_plots$h), dpi = 600, fig.cap = 'Definition of subsets of participants suffering from persistent COVID-19 symptoms.'}
+
+suppl_figures$participant_cluster_plots$plot
+
+```
+
+\newpage
+
+__Supplementary Figure \@ref(fig:participant-cluster-plots). Definition of subsets of participants suffering from persistent COVID-19 symptoms.__
+
+The subset of the study cohorts suffering from COVID-19 symptoms lasting for four weeks or longer after symptom onset was classified into three subsets: HAP^neg^, HAP^int^ and HAP^high^ in regard to the count of the persistent hyposmia/anosmia (HAP), fatigue (FAP) and multi-organ phenotype symptoms (MOP) (__Supplementary Figure \@ref(fig:long-clustering)__) by the DBSCAN clustering procedure with Manhattan distance.
+
+__(A)__ Plots of the sorted 4-nearest neighbor (4-NN) Manhattan distances as a function of the observation number used to guide the decision on the optimal value of the $\epsilon$. The optimal $\epsilon$ value was defined as the 4-NN value preceding the steep increase of the 4-NN distance.
+
+__(B)__ Assignment of the participants with persistent COVID-19 symptoms to the HAP^neg^, HAP^int^ and HAP^high^ subsets. The plots display two first principal components derived from principal component analysis (PCA) of the Manhattan distance matrix. 
+
+Tyrol: HAP^neg^ n = `r part_clust$clust_assignment_long$north %>% count(clust_long) %>% .$n %>% .[1]`, HAP^int^ n = `r part_clust$clust_assignment_long$north %>% count(clust_long) %>% .$n %>% .[2]`, HAP^high^ n = `r part_clust$clust_assignment_long$north %>% count(clust_long) %>% .$n %>% .[3]`. 
+South Tyrol: HAP^neg^ n = `r part_clust$clust_assignment_long$south %>% count(clust_long) %>% .$n %>% .[1]`, HAP^int^ n = `r part_clust$clust_assignment_long$south %>% count(clust_long) %>% .$n %>% .[2]`, HAP^high^ n = `r part_clust$clust_assignment_long$south %>% count(clust_long) %>% .$n %>% .[3]`. 
+
+\newpage
+
+```{r participant-cluster-symp, fig.width = mm_inch(suppl_figures$participant_cluster_symp$w), fig.height = mm_inch(suppl_figures$participant_cluster_symp$h), dpi = 600, fig.cap = 'Sums of all, hyposmia/anosmia, fatigue and multi-organ phenotype symptoms in participants with persistent COVID-19 complaints.'}
+
+suppl_figures$participant_cluster_symp$plot
+
+```
+
+__Supplementary Figure \@ref(fig:participant-cluster-symp). Sums of all, hyposmia/anosmia, fatigue and multi-organ phenotype symptoms in participants with persistent COVID-19 complaints.__
+
+Study participants suffering from persistent COVID-19 complaints for four weeks or longer after symptom onset were assigned to the HAP^neg^, HAP^int^ and HAP^high^ subsets (__Supplementary Figure \@ref(fig:participant-cluster-plots)__) defined by the counts of the hyposmia/anosmia (HAP) fatigue (FAP) and multi-organ phenotype symptoms (__Supplementary Figure \@ref(fig:long-clustering)__).
+
+Sums (#) of all hyposmia, fatigue, and multi-organ phenotype symptoms in the Tyrol __(A)__ and South Tyrol __(B)__ cohort presented as violin plots. Each point denotes a single participant, orange diamonds and whiskers represent medians with IQR. Statistical significance was assessed by Kruskal-Wallis test, p values corrected for multiple comparisons with Benjamini-Hochberg method are presented in plot headings. Numbers of complete observations are indicated under the bottom plots.
+
+\newpage
+
+```{r modeling-acute-symptoms, fig.width = mm_inch(suppl_figures$modeling_acute_symptoms$w), fig.height = mm_inch(suppl_figures$modeling_acute_symptoms$h), dpi = 600, fig.cap = 'Identification of factors associated with the acute COVID-19 symptom sum by univariate modeling.'}
+
+suppl_figures$modeling_acute_symptoms$plot
+
+```
+
+__Supplementary Figure \@ref(fig:modeling-acute-symptoms). Identification of factors associated with the acute COVID-19 symptom sum by univariate modeling.__
+
+Correlation of `r lasso$modeling_inp$north$variables$sum_symptoms_acute %>% length` candidate factors with the sum of acute COVID-19 symptoms (first two weeks after symptom onset) was investigated with a series of sex- and age-weighted ordinary generalized linear models (GLM, assumed Poisson distribution of residuals, log link function) with inclusion of continuous observation time variable (test to completion interval) as a confounder. Estimate significance was determined by Wald Z-test and corrected for multiple comparisons with Benjamini-Hochberg method. For full list of significant factors, see: __Supplementary Table \@ref(tab:tab-uni-modeling)__.
+
+__(A)__ Numbers of significant factors associated with the acute symptom burden in each of the study populations presented in a Venn plot. Common significant factors are listed next to the plot.
+
+__(B)__ Values of regression coefficients of the top 20 most influential significant factors correlating with the acute symptom burden in the Tyrol cohort and verified in the South Tyrol cohort presented in a Forest plot. Points represent $\beta$ estimate values, whiskers represent the 95% confidence interval. Numbers of complete observations are presented below the plot.
+
+Surv. completion: survey completion, Daily analgesia: daily analgetic medication before COVID-19, Pre-CoV depr/anxiety,: depression or anxiety before COVID-19, Empl. sector: employment sector, Freq. resp. inf.: frequent respiratory infections before COVID-19, Pre-CoV sleep disord.: sleep disorders before COVID-19, Lung dis.: lung disease before COVID-19, # comorb.: number of pre-existing co-morbidities, CoV antibiotic/CoV anti-pyretic/CoV no therapy: antibiotic/anti-pyretic/no symptom-specific treatment during acute COVID-19, Contact physician: contact with a physician during quarantine.
+
+\newpage
+
+```{r modeling-upset-long-covid, fig.width = mm_inch(suppl_figures$upset_long_cov_univariate$w), fig.height = mm_inch(suppl_figures$upset_long_cov_univariate$h), dpi = 600, fig.cap = 'Common significant co-variates of symptom persistence, relapse and >50% physical performance loss following COVID-19.'}
+
+suppl_figures$upset_long_cov_univariate$plot
+
+```
+
+__Supplementary Figure \@ref(fig:modeling-upset-long-covid). Common significant co-variates of symptom persistence, relapse and >50% physical performance loss following COVID-19.__
+
+Correlation of candidate factors with development of persistent COVID-19 symptoms (four weeks or longer after symptom onset), symptom relapse or >50% physical performance loss was investigated with a series of sex- and age-weighted ordinary logistic models with inclusion of continuous observation time variable (test to completion interval) as a confounder. Estimate significance was determined by Wald Z-test and corrected for multiple comparisons with Benjamini-Hochberg method. Numbers of significant co-variates shared between the readouts and cohorts are visualized in the bar/upset plot. Factors significant for all investigated readouts in both study cohorts are listed next to the plot in the alphabetical order.
+
+MOP: multi-organ phenotype, NIP: non-specific infection phenotype, #: number of, abd.: abdominal, imp.: impaired, subj. CoV percept.: subjective perception of acute COVID-19.
+
+
+
+\newpage
+
+```{r modeling-long-covid, fig.width = mm_inch(suppl_figures$modeling_long_covid$w), fig.height = mm_inch(suppl_figures$modeling_long_covid$h), dpi = 600, fig.cap = 'Identification of factors associated with development of persistent COVID-19 symptoms.'}
+
+suppl_figures$modeling_long_covid$plot
+
+```
+
+__Supplementary Figure \@ref(fig:modeling-long-covid). Identification of factors associated with development of persistent COVID-19 symptoms.__
+
+Correlation of `r lasso$modeling_inp$north$variables$long_covid %>% length` candidate factors with development of persistent COVID-19 symptoms (four weeks or longer after symptom onset) was investigated with a series of sex- and age-weighted ordinary logistic models with inclusion of continuous observation time variable (test to completion interval) as a confounder. Estimate significance was determined by Wald Z-test and corrected for multiple comparisons with Benjamini-Hochberg method. For full list of significant factors, see: __Supplementary Table \@ref(tab:tab-uni-modeling)__.
+
+__(A)__ Numbers of significant factors associated with development of persistent COVID-19 symptoms in each of the study populations presented in a Venn plot. Common significant factors are listed next to the plot.
+
+__(B)__ Values of odds ratios (OR) of the top 20 most influential significant factors correlating with development of persistent COVID-19 symptoms in the Tyrol cohort and verified in the South Tyrol cohort presented in a Forest plot. Points represent OR estimate values, whiskers represent the 95% confidence interval. Numbers of complete observations are presented below the plot.
+
+Empl. sector: employment sector, # acute MOP/NIP symptoms: number of acute multi-organ/non-specific infection phenotype symptoms, Surv. completion: survey completion, Obs. time: test to study completion time interval, Pre-CoV depr/anxiety,: depression or anxiety before COVID-19, Freq. resp. inf: frequent respiratory infections, # comorb.: number of pre-existing co-morbidities, CoV antibiotic/CoV anti-pyretic/CoV no therapy: antibiotic/anti-pyretic/no symptom-specific treatment during acute COVID-19, Contact physician: contact with a physician during quarantine, imp. walk: impaired walk, # acute symptoms: total number of acute symptoms, 2Q, 3Q, 4Q: second, third, fourth quartile of symptom number.
+
+\newpage
+
+```{r modeling-relapse, fig.width = mm_inch(suppl_figures$modeling_relapse$w), fig.height = mm_inch(suppl_figures$modeling_relapse$h), dpi = 600, fig.cap = 'Identification of factors associated symptom relapse after the initial resolution.'}
+
+suppl_figures$modeling_relapse$plot
+
+```
+
+__Supplementary Figure \@ref(fig:modeling-relapse). Identification of factors associated symptom relapse after the initial resolution.__
+
+Correlation of `r lasso$modeling_inp$north$variables$relapse %>% length` candidate factors with symptom relapse after the initial resolution was investigated with a series of sex- and age-weighted ordinary logistic models with inclusion of continuous observation time variable (test to completion interval) as a confounder. Estimate significance was determined by Wald Z-test and corrected for multiple comparisons with Benjamini-Hochberg method. For full list of significant factors, see: __Supplementary Table \@ref(tab:tab-uni-modeling)__.
+
+__(A)__ Numbers of significant factors associated with symptom relapse in each of the study populations presented in a Venn plot. Common significant factors are listed next to the plot.
+
+__(B)__ Values of odds ratios (OR) of the top 20 most influential significant factors correlating with relapse in the Tyrol cohort and verified in the South Tyrol cohort presented in a Forest plot. Points represent OR estimate values, whiskers represent the 95% confidence interval. Numbers of complete observations are presented below the plot.
+
+abd. pain: abdominal pain, dim. appetite: diminished appetite, Subj. CoV percept: subjective perception of acute COVID-19, Supp. quality: quality of authority support during quarantine, imp. f. m. s.: impaired fine motor skills, imp.walk: impaired walk, # acute MOP/NIP symptoms: number of acute multi-organ/non-specific infection phenotype symptoms, # acute symptoms: total number of acute symptoms, 2Q, 3Q, 4Q: second, third, fourth quartile of symptom number.
+
+\newpage
+
+```{r modeling-phys-performance, fig.width = mm_inch(suppl_figures$modeling_phys_performance$w), fig.height = mm_inch(suppl_figures$modeling_phys_performance$h), dpi = 600, fig.cap = 'Identification of factors associated with major physical performance impairment following COVID-19.'}
+
+suppl_figures$modeling_phys_performance$plot
+
+```
+
+__Supplementary Figure \@ref(fig:modeling-relapse). Identification of factors associated with major physical performance impairment following COVID-19.__
+
+Correlation of `r lasso$modeling_inp$north$variables$perf_impairment_50 %>% length` candidate factors with over 50% physical performance impairment following COVID-19 was investigated with a series of sex- and age-weighted ordinary logistic models with inclusion of continuous observation time variable (test to completion interval) as a confounder. Estimate significance was determined by Wald Z-test and corrected for multiple comparisons with Benjamini-Hochberg method. For full list of significant factors, see: __Supplementary Table \@ref(tab:tab-uni-modeling)__.
+
+__(A)__ Numbers of significant factors associated with major physical performance impairment relapse in each of the study populations presented in a Venn plot. Common significant factors are listed next to the plot.
+
+__(B)__ Values of odds ratios (OR) of the top 20 most influential significant factors correlating with major physical performance impairment in the Tyrol cohort and verified in the South Tyrol cohort presented in a Forest plot. Points represent OR estimate values, whiskers represent the 95% confidence interval. Numbers of complete observations are presented below the plot.
+
+abd. pain: abdominal pain, Pre-CoV sleep disord.: sleep disorders before COVID-19, # comorb.: number of pre-existing co-morbidities, Contact physician: contact with a physician during quarantine, Subj. CoV percept.: subjective perception of COVID-19, CoV antibiotic: symptom-specific antibiotic treatment during acute COVID-19, imp. f. m. s.: impaired fine motor skills, imp. walk: impaired walk, # acute MOP/NIP symptoms: number of acute multi-organ/non-specific infection phenotype symptoms, # acute symptoms: total number of acute symptoms, 2Q, 3Q, 4Q: second, third, fourth quartile of symptom number.
+
+
+\newpage
+
+```{r fig-lasso-relapse, fig.width = mm_inch(suppl_figures$lasso_relapse$w), fig.height = mm_inch(suppl_figures$lasso_relapse$h), dpi = 600, fig.cap = 'Identification of independent factors associated with symptom relapse after the initial resolution.__'}
+
+suppl_figures$lasso_relapse$plot
+
+```
+
+__Supplementary Figure \@ref(fig:fig-lasso-relapse). Identification of independent factors associated with symptom relapse after the initial resolution.__
+
+Correlation of `r lasso$modeling_inp$north$variables$relapse %>% length` candidate factors with the risk of symptom relapse after the initial resolution was investigated by sex- and age-weighted LASSO (least absolute shrinkage and selection operator) generalized linear modeling (logistic regression) in the Tyrol and South Tyrol cohorts.
+
+__(A)__ Numbers of significant independent factors associated with symptom relapse in each of the study populations presented in a Venn plot. Common significant factors are listed next to the plot.
+
+__(B)__ Values of non-zero regression coefficents of the significant factors correlating with symptom relapse in the plot. Numbers of complete observations, mean absolute errors (MAE) and pseudo-R^2^ statistics for each LASSO model are presented next to the plot.
+
+imp. concentration: impaired concentration, Contact physician: contact with a physician during quarantine, # acute MOP symptoms: number of acute multi-organ phenotype symptoms, 2Q, 3Q, 4Q: second, third, fourth quartile of symptom number.
+
+
+\newpage
+
+```{r fig-lasso-phys-performance, fig.width = mm_inch(suppl_figures$lasso_phys_performance$w), fig.height = mm_inch(suppl_figures$lasso_phys_performance$h), dpi = 600, fig.cap = 'Identification of independent factors associated with major physical performance impairment following COVID-19.'}
+
+suppl_figures$lasso_phys_performance$plot
+
+```
+
+__Supplementary Figure \@ref(fig:fig-lasso-phys-performance). Identification of independent factors associated with major physical performance impairment following COVID-19.__
+
+Correlation of `r lasso$modeling_inp$north$variables$perf_impairment_50 %>% length` candidate factors with over 50% physical performance impairment following COVID-19 was investigated by sex- and age-weighted LASSO (least absolute shrinkage and selection operator) generalized linear modeling (logistic regression) in the Tyrol and South Tyrol cohorts.
+
+__(A)__ Numbers of significant independent factors associated with major physical performance impairment in each of the study populations presented in a Venn plot. Common significant factors are listed next to the plot.
+
+__(B)__ Values of non-zero regression coefficents of the significant factors correlating with major physical performance impairment in the plot. Numbers of complete observations, mean absolute errors (MSE) and pseudo-R^2^ statistics for each LASSO model are presented next to the plot.
+
+Daily analgesia: daily analgetic medication before COVID-19, Pre-CoV depr/anxiety: depression or anxiety before COVID-19, Subj. CoV percept.: subjective perception of acute COVID-19, # acute MOP symptoms: number of acute multi-organ phenotype symptoms, # acute symptoms: total number of acute symptoms, 2Q, 3Q, 4Q: second, third, fourth quartile of symptom number.
+
+\newpage
+
+```{r fig-lasso-prediction, fig.width = mm_inch(suppl_figures$lasso_prediction$w), fig.height = mm_inch(suppl_figures$lasso_prediction$h), dpi = 600, fig.cap = 'Prediction of persistent symtom development, symptom relapse and major physical performance loss by LASSO models trained in the Tyrol cohort.'}
+
+suppl_figures$lasso_prediction$plot
+
+```
+
+__Figure \@ref(fig:fig-lasso-prediction). Prediction of persistent symtom development, symptom relapse and major physical performance loss by LASSO models trained in the Tyrol cohort.__
+
+Correlation of multiple candidate features with the risk of developing persistent COVID-19 symptoms (four weeks or longer after symptom onset) __(A)__, symptom relapse after initial resolution __(B)__ and over 50% physical performance loss following COVID-19 __(C)__ was investigated with LASSO (least absolute shrinkage and selection operator) generalized linear modeling (logistic regression) in the Tyrol training cohort. Based on the trained models, linear predictor scores (LPS) were calculated for the training cohort and the test South Tyrol cohort. Prediction accuracy of the LPS in the both study collectives was investigated by receiver-operator characteristic (ROC) analysis.
+
+Cutoff: optimal LPS cutoff, Se: sensitivity, Sp: specificity, AUC: area under the curve with 95% CI. Number of cases and the numbers of complete observations are indicated below the plots.
+
+\newpage
+
+# References

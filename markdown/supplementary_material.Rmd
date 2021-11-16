@@ -1,0 +1,521 @@
+---
+title: "Phenotyping of acute and persistent COVID-19 features in the outpatient setting: exploratory analysis of an international cross-sectional online survey"
+subtitle: "Supplementary Material"
+author: "Health after COVID-19 in Tyrol study team"
+date: "`r format(Sys.time(), '%Y-%m-%d')`"
+
+output: 
+  pdf_document:
+    latex_engine: xelatex
+bibliography: cov_biblio.bib
+csl: clinical-infectious-diseases.csl
+header-includes:
+  \usepackage{longtable}
+  \usepackage{tabu}
+  \usepackage{caption}
+  \usepackage{makecell}
+  \usepackage{pdflscape}
+  \usepackage{array}
+  \usepackage{booktabs}
+  \usepackage{threeparttable}
+  \usepackage{threeparttablex}
+  \usepackage{wrapfig}
+  \usepackage{multirow}
+  \usepackage[normalem]{ulem}
+  \usepackage{colortbl}
+  \usepackage{xcolor}
+  \usepackage{float} \floatplacement{figure}{H}\floatplacement{table}{H}
+  \newcommand{\beginsupplement}{\setcounter{table}{0}  \renewcommand{\thetable}{S\arabic{table}}       \setcounter{figure}{0} \renewcommand{\thefigure}{S\arabic{figure}}}
+---
+
+```{r, setup, include = FALSE}
+
+library(bookdown)
+
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, dev = "cairo_pdf")
+
+
+```
+
+\newpage
+\beginsupplement
+
+# Supplementary Methods
+
+## Study design and participants
+
+The bi-national 'Health after COVID-19 in Tyrol' study (ClinicalTrials.gov: NCT04661462) was conducted in the Austrian state of Tyrol and the bordering Italian province of South Tyrol. Between 30^th^ September 2020 and 5^th^ July 2021, COVID-19 convalescents recovering from SARS-CoV-2 infection confirmed by nasal or oral swab PCR or blood antibody test were invited to participate in an anonymized, cross-sectional web-based survey [@Holzner2012] via public media call (local broadcasters: ORF Tirol and RAI Südtirol and newspapers) or contact with a physician. Residency in the study regions and age $\geq$ 16 (Tyrol) or $\geq$ 18 years (South Tyrol) were additional study inclusion criteria.
+
+Analysis exclusion criteria in this report were hospitalization because of SARS-CoV-2 infection and the observation time (SARS-CoV-2 test to survey completion) of less than 28 days. Additionally, phenotyping of post-acute sequelae of COVID-19 (PASC) was done with the subsets of the original cohort including the participants with a minimal observation time of 90 days. The scheme of study and analysis inclusion is provided in __Figure 1__.
+
+The study was performed in accordance with the Declaration of Helsinki and the European Data Policy. Digital informed consent was obtained from each participant at the survey start. The study protocols were approved by the institutional review boards of the Medical University of Innsbruck (Tyrol, approval number: 1257/2020) and of the Autonomous Province of South Tyrol/Bolzano (South Tyrol, approval number: 0150701).
+
+## Measures
+
+The study questionnaire was developed by a multidisciplinary team (infectious disease specialists, pneumologists, internists, neurologists, psychiatrists, dermatologists, general practitioners, public health and rehabilitation physicians). The survey recorded information on demographics (age, sex, height, weight before infection), socioeconomic status (education, profession, employment status, residence, household size), pre-existing comorbidities (`r globals$comorb %>% length` items), smoking history, daily medication (quantity, major drug types relevant for SARS-CoV-2 infection course), course of SARS-CoV-2 infection (contact with an infected individual, incubation time, quarantine duration, contact with authorities and physicians), presence and duration of COVID-19 symptoms (`r globals$symptoms %>% length` items), illness perception, symptom relapse as well as psychosocial health and physical constitution during COVID-19 convalescence. Study variables are listed in __Supplementary Table \@ref(tab:tab-study-variables)__. Baseline demographic, socioeconomic and clinical characteristic of the study populations is presented in __Table 1__. Features of acute COVID-19 course in both study cohorts are presented in __Table 2__. Post-acute characteristic of the study populations is shown in __Table 3__. The German and Italian survey texts as well as the English translation are available as __Supplementary Files__.
+
+## Definitions and variable stratification
+
+Respondents were asked to retrospectively assign their COVID-19 symptoms to the following duration classes: absent, present for 1 - 3 days, up to 1 week, up to 2 weeks, up to 4 weeks, up to 3 months, up to 6 months and > 6 months. The surveyed symptoms were classified as (1) acute, when present in the first two weeks after clinical onset, (2) sub-acute when present at 2 - 4 after clinical onset, (3) persistent when present for 4 weeks or longer. Based on the self-reported symptom duration, the individual time intervals till symptom recovery were calculated. 
+Acute COVID-19 was defined as presence of at least one acute symptom, long COVID was defined as presence of at least one persistent symptom for $\geq$ 28 days, post-acute sequelae of COVID-19 was defined as presence of at least one persistent symptom for $\geq$ 3 months [@Sudre2021; @NICE].
+
+Symptom relapse after the initial resolution, subjective convalescence and need for rehabilitation were surveyed as single yes/no items each. Illness perception was queried as 'cold-like', 'flu-like', 'gastroenteritis-like' or 'not experienced before/other'. Physical performance loss as compared with the time before SARS-CoV-2 infection was assessed with a 0 - 100 percent scale. Pre-existing comorbidities, depression/anxiety or sleep disorders were surveyed as single yes/no question each. Self-perceived overall mental health (OMH) and quality of life (QoL) impairment were rated with a 4-point Likert scale (‘excellent’, ‘good’, ‘fair’, ‘poor’, scored: 0, 1, 2, 3). Psychosocial stress was assessed with the PHQ stress module [@Grafe2004; @Hufner2021] without items on weight, sexuality and past traumatic/serious events; the item on worries/dreams was adapted to COVID-19. Participants were stratified by age into young ($\leq$ 30), middle-aged (31 - 65) and elderly ($\geq$ 66 years old). Normal weight, overweight and obesity was defined with 25 and 30 cutoffs of the body mass index (BMI). For modeling tasks, the count of all acute symptoms as well as acute symptoms assigned to the particular phenotypes was stratified by quartiles as presented in __Supplementary Table \@ref(tab:tab-sypt-sum)__. For the detailed variable stratification scheme, refer to __Supplementary Table \@ref(tab:tab-study-variables)__.
+
+## Statistical analysis
+
+### Data transformation and visualization
+
+Self-reported demographic, biometric, symptom and follow-up data were analyzed and visualized with R version 4.0.5 and _tidyverse_ environment [@Wickham2019]. Visualization of the data, modeling and clustering results was done with packages _ggplot2_ [@Wickham2016], _cowplot_ [@Wilke2019], _ggvenn_ and _plotROC_ [@Sachs2017]. The entire R analysis pipeline is available at https://github.com/PiotrTymoszuk/health-after-COVID19-analysis-pipeline.
+
+### Descriptive statistic and hypothesis testing
+
+For assessing statistical significance of changes in variable frequency between analysis groups or in time, $\chi^2$ test and $\chi^2$ test for trend were applied. To compare differences in medians of numeric variables, Mann-Whitney U test and Kruskal-Wallis test were used, as appropriate for the group number. The R functions used for descriptive statistic and hypothesis testing are available at https://github.com/PiotrTymoszuk/counting-tools. If not indicated otherwise, p values were corrected for multiple testing with Benjamini-Hochberg method [@Benjamini1995].
+
+### Symptom kinetics modeling
+
+In symptom count modeling, only the participants with the complete set of symptom answers were included. The rates of symptom count reduction in the entire study cohorts in time post clinical onset were modeled with mixed-effect Poisson regression (fixed effect: numeric time after clinical onset, random effect: participant, log-link function) with _glmer()_ function from _lme4_ package [@Bates2015]. An analogical modeling approach was utilized to model symptom count kinetic differences in participants suffering from long COVID or PASC with the subsets with complete symptom resolution (fixed effects: numeric time after clinical onset, long COVID/PASC and the time:long COVID/PASC). 
+The exponentiated $\beta_{time}$ coefficient was interpreted as an estimate symptom resolution rate, the exponentiated $\beta_{interaction}$ was assumed an estimate of symptom reduction rate between the participants with and without long COVID or PASC. Estimate significance was assessed with two-sided T test and degrees of freedom calculated with Satterthwaite method [@Bates2015; @Kuznetsova2017].
+
+### Co-occurrence of symptoms and identification of disease phenotypes
+
+Co-occurrence of acute, persistent (long COVID) and long-term persistent (PASC) symptoms was investigated with pairwise simple matching distances (SMD, function _sm()_, package _nomclust_) [@Boriah2008] and PAM clustering algorithm (partitioning around medoids, function _pam()_, package _cluster_) [@Schubert2019]. Only data from the participants with symptoms at the given time point i.e. acute COVID-19, long COVID and PASC individuals were included in the analysis. 
+The decision on the optimal cluster number was based on the 'bend' of the within-cluster sums-of-square curve (function _fviz_nbclust()_, package _factoextra_, __Supplementary Figure \@ref(fig:fig-pheno-diagnostic)A__), visual analysis of the distance heat maps and results of principal component analysis of the data set (_PCAproj()_ function, _pcaPP_ package) [@Croux2007; @Todorov2013]. The R tools for clustering analysis are available at https://github.com/PiotrTymoszuk/clustering-tools-2.
+
+Symptom clusters, further termed 'phenotypes' were defined in the training Tyrol cohort and the symptom - phenotype assignment scheme was applied to the test South Tyrol collective. 
+The general clustering tendency in the training and test cohort was determined with Hopkins statistic (Tyrol: `r symptom_clust$clustering_tendency$north %>% map(~.x$hopkins_stat) %>% map_dbl(signif, 2) %>% paste(collapse = ', ')`, South Tyrol `r symptom_clust$clustering_tendency$south %>% map(~.x$hopkins_stat) %>% map_dbl(signif, 2) %>% paste(collapse = ', ')` for acute COVID-19, long COVID and PASC, respectively, _get_clust_tendency()_ tool, package _factoextra_). 
+The quality and consistency of clustering in the train and test cohorts was assessed by the ratios of between-cluster to total sum of squares (__Supplementary Figure \@ref(fig:fig-pheno-diagnostic)B__).
+
+By this means, two phenotypes of acute COVID-19 (NIP: non-specific infection phenotype and MOP: multi-organ phenotype) and three phenotypes of each long COVID and PASC (HAP: hyposmia/anosmia phenotype, FAP: fatigue phenotype, MOP: multi-organ phenotype) were defined. See: __Supplementary Table \@ref(tab:tab-phenotypes)__ for the assignment scheme.
+
+### Subsets of long COVID and PASC individuals
+
+Association of subjects suffering from long COVID or PASC in respect to the numbers of MOP, FAP and HAP symptoms was explored with pairwise Manhattan distances (function _distance()_, package _philentropy_) [@Drost2018] and DBSCAN clustering algorithm (function _dbscan()_, package _dbscan_) [@Ester1996; @Hahsler2019]. The minPts argument was set to five based on the $>2^{data\:dimension}$ rule. The decision on the optimal $\epsilon$ parameter value was guided by inspection of the 4 nearest neighbor (4-NN) distance plot (__Supplementary Figure \@ref(fig:fig-part-diagnostic)A__). The optimal $\epsilon$ value was defined as the 4-NN value preceding the steep increase of the 4-NN distance [@Belyadi2016].
+
+Definition of participant clusters, further termed 'participant subsets', was done in the training Tyrol cohort. Three participant subsets were identified in long COVID and PASC each: HAP-negative (HAP-), HAP intermediate (HAPi), HAP high (HAP+), termed after on the count of hyposmia/anosmia phenotype symptoms. The subset assignment in the test South Tyrol (STY) cohort was done with k-nearest-neighbor (k = 20 - 50) label propagation algorithm with $dist^{-1}$ kernel-weighted voting [@Glennan2016; @Lelis2009; @Leng2014].
+The general clustering tendency in the training and test cohort was determined with Hopkins statistic 
+(Tyrol: `r part_clust$clustering_tendency$north %>% map_dbl(~.x$hopkins_stat) %>% signif(2) %>% paste(collapse = ' and ')`, 
+South Tyrol: `r part_clust$clustering_tendency$south %>% map_dbl(~.x$hopkins_stat) %>% signif(2) %>% paste(collapse = ' and ')` for long COVID and PASC, respectively, _get_clust_tendency()_ tool, package _factoextra_). 
+The quality and consistency of clustering in the train and test cohorts was assessed by the ratios of between-cluster to total sum of squares (__Supplementary Figure \@ref(fig:fig-part-diagnostic)B__) as well as results of principal component analysis of the data set (_PCAproj()_ function, _pcaPP_ package, __Figure 6A__) [@Croux2007; @Todorov2013]. The R tools for clustering analysis are available at https://github.com/PiotrTymoszuk/clustering-tools-2.
+
+### Uni-variate modeling
+
+Correlation of the candidate factors (__Supplementary Table \@ref(tab:tab-mod-variables)__) with the count of acute COVID-19 symptoms, risk of long COVID and PASC was assessed with a series of univariate generalized linear models (symptom count: Poisson, risk: logistic regression). 
+To account for the sex and age bias as compared with the general population of COVID-19 convalescents, frequency weights were implemented in the modeling procedure based on the publicly available age and sex distributions of the COVID-19 convalescent populations in Tyrol (https://covid19-dashboard.ages.at/dashboard.html, access on 13^th^ July 2021) and Italy (https://www.epicentro.iss.it/coronavirus/bollettino/Bollettino-sorveglianza-integrata-COVID-19_7-luglio-2021.pdf, access on 13^th^ July 2021) for the Tyrol and South Tyrol study cohorts, respectively (__Supplementary Table \@ref(tab:tab-modeling-weights)__). 
+To address possible recall bias caused by retrospective surveying of the acute COVID-19 course features, continuous numeric observation time variable (SARS-CoV-2 test to survey compltetion time) was inceluded in every model as a confounder.
+
+Significance of model estimates was determined by Wald Z test and p values were corrected for multiple comparisons with Benjamini-Hochberg method[@Benjamini1995]. Model quality and assumptions were checked by visual inspection of the plots of model residuals. The tools used for serial modeling and model quality check are available at https://github.com/PiotrTymoszuk/lm_qc_tools.
+
+### LASSO modeling
+
+Identification of the most influential among candidate factors (__Supplementary Table \@ref(tab:tab-mod-variables)__) associated with the count of acute COVID-19 symptoms, risk of long COVID and PASC was accomplished with LASSO (least absolute shrinkage and selection operator) generalized linear modeling (symptom count: Poisson, risk: logistic regression) and _cv.glmnet()_ tools from _glmnet_ package [@Tibshirani1996; @Friedman2010]. The models were age- and sex weighted (__Supplementary Table \@ref(tab:tab-modeling-weights)__).
+
+LASSO models were constructed in the training Tyrol cohort (__Supplementary Figure \@ref(fig:fig-lasso-acute)A__ and __\@ref(fig:fig-lasso-risk)A__) with the lambda parameter set to 'lambda.1se' resulting in the output models with optimal regularization. The models were subjected to internal (redistribution) and 50-fold cross-validation in the training cohort with the MAE (mean absolute error, symptom count) or MSE (mean squared error, risk) error statistic. Re-distribution and cross-validation statistics were extracted with _assess.glmnet()_ function and home-developed wrappers (https://github.com/PiotrTymoszuk/lasso_tools). Pseudo R^2^ was calculated with the formula $pseudo-R^2=1 - deviance/null\:deviance$. Quality of model fit and assumptions were checked by visual inspection of the plots of model residuals.
+
+Symptom count, long COVID and PASC risk predictions by the LASSO models developed in the training Tyrol cohort were externally validated in the South Tyrol test cohort (__Supplementary Figure \@ref(fig:fig-lasso-acute)B__ and __\@ref(fig:fig-lasso-risk)B__). The quality of long COVID and PASC prediction was assessed with receiver-operator characteristic (ROC) using tools proveided by _OptimalCutpoints_ and _plotROC_ packages [@Lopez-Raton2014; @Sachs2017].
+
+# Data availability
+
+As this study is still ongoing, the data will be made available on a serious request and made publicly available after the completion. The entire R analysis pipeline is available at https://github.com/PiotrTymoszuk/health-after-COVID19-analysis-pipeline.
+
+
+\newpage
+
+# Supplementary Tables {#sec:tables}
+
+```{r tab-study-variables}
+
+suppl_tables$study_variables[1, 1] %>% 
+  mutate(`Variable name` = '') %>% 
+  kable(caption = '\\textbf{Variables queried directly and determined based on survey answers.}\\\\Variable name: full variable name, Variable short name: short variable name used for plot labeling, Unit: variable unit, Description: variable description, Cutpoints: cutoffs used for variable stratification, Levels: variable strata, Variable type: survey module.\\\\The table is available online.', 
+        format = 'latex', 
+        escape = T, 
+        booktabs = T, 
+        col.names = '') %>% 
+  kable_styling(full_width = F)
+
+```
+
+\newpage
+
+```{r tab-sypt-sum}
+
+suppl_tables$symptom_sum_strata %>% 
+  kable(caption = '\\textbf{Stratification of the acute symptom count variables for modeling tasks}. \\\\$\\#$: number, NIP: non-specific infection phenotype, MOP: multi-organ phenotype.', 
+        format = 'latex', 
+        escape = T, 
+        booktabs = T) %>% 
+  collapse_rows(1, latex_hline = 'major',valign = 'middle') %>% 
+  kable_styling(full_width = F, 
+                latex_options = c('striped'))
+
+```
+
+\newpage
+
+```{r tab-sympt-frequency}
+
+suppl_tables$sympt_frequency[1, 1] %>% 
+  mutate(Cohort = '') %>% 
+  kable(caption = '\\textbf{Whole-cohort symptom prevalence and time changes of COVID-19 symptoms}\\\\Symptom frequency at the given time point (first two, two to four and four weeks or longer after symptom onset) was determined as a percent of the entire cohort. Statistical significance of the time change in symptom frequency was assessed by $\\chi^2$ test for trend and p values corrected for multiple comparisons with Benjamini-Hochberg method.\\\\Time point: time interval after symptom onset, N: number of cohort members with the symptom.\\\\The table is available online.', 
+        format = 'latex', 
+        escape = T, 
+        booktabs = T, 
+        col.names = '') %>% 
+  kable_styling(full_width = F)
+
+```
+
+\newpage
+
+```{r tab-phenotypes}
+
+suppl_tables$phenotypes %>% 
+  kable(caption = '\\textbf{Assignment of acute and persistent COVID-19 symptoms to the phenotypes.}\\\\imp.: impaired, dim.: diminished.', 
+        format = 'latex', 
+        escape = F, 
+        booktabs = T, 
+        longtable = T) %>% 
+  column_spec(1, width = '2cm', latex_valign = 'm') %>% 
+  column_spec(2, width = '3cm', latex_valign = 'm') %>% 
+  column_spec(3, width = '12cm') %>% 
+  collapse_rows(1, latex_hline = 'major',valign = 'middle') %>% 
+  kable_styling(full_width = F, 
+                latex_options = c('striped'), 
+                font_size = 9)
+
+```
+
+\newpage
+
+```{r tab-subset-clinic}
+
+suppl_tables$part_subsets_features[1, 1] %>% 
+  mutate(`Time point` = '') %>% 
+  kable(caption = '\\textbf{Demographic and clinical characteristic of the long COVID and PASC participant subsets.}\\\\HAP neg: hypo/anosmia-negative, HAP int: hypo/anosmia intermediate, HAP pos: hypo-anosmia high phenotype subset, Raw p: unadjusted p value obtained with $\\chi^2$ test, Adjusted p: p value adjusted for multiple testing with Benjamini-Hochberg method.\\\\The table is available online.', 
+        format = 'latex', 
+        escape = F, 
+        booktabs = T, 
+        longtable = F, 
+        col.names = '')
+
+```
+
+
+```{r tab-subset-scores}
+
+suppl_tables$part_subsets_scores[1, 1] %>% 
+  mutate(`Time point` = '') %>% 
+  kable(caption = '\\textbf{Physical, quality of life and mental health inpairment scoring in the long COVID and PASC participant subsets.}\\\\HAP neg: hypo/anosmia-negative, HAP int: hypo/anosmia intermediate, HAP pos: hypo-anosmia high phenotype subset, Raw p: unadjusted p value obtained with Kruskal-Wallis test, Adjusted p: p value adjusted for multiple testing with Benjamini-Hochberg method.\\\\The table is available online.', 
+        format = 'latex', 
+        escape = F, 
+        booktabs = T, 
+        longtable = T, 
+        col.names = '')
+
+```
+
+\newpage
+
+```{r tab-mod-variables}
+
+suppl_tables$candidate_factors %>% 
+  kable(caption = '\\textbf{Candidate variables in modeling tasks.}.', 
+        format = 'latex', 
+        escape = T, 
+        booktabs = T, 
+        longtable = T) %>% 
+  column_spec(1, width = '3cm', latex_valign = 'm') %>% 
+  column_spec(2, width = '3cm', latex_valign = 'm') %>% 
+  column_spec(3, width = '10cm') %>% 
+  collapse_rows(columns = 1) %>% 
+  kable_styling(full_width = F, 
+                latex_options = c('striped', 'repeat_header'), 
+                repeat_header_text = 'Continued', 
+                font_size = 9)
+
+```
+
+\newpage
+
+```{r tab-modeling-weights}
+
+suppl_tables$modeling_weights %>% 
+  kable(caption = '\\textbf{Weights applied to age and strata in modeling tasks.}.\\\\Convalescents: number of convalescents in the given strata in the Tyrol or Italy population.', 
+        format = 'latex', 
+        escape = F, 
+        booktabs = T, 
+        longtable = T) %>% 
+  collapse_rows(columns = 1, latex_hline = 'major',valign = 'middle') %>% 
+  kable_styling(full_width = F, 
+                latex_options = c('striped'), 
+                font_size = 9)
+
+```
+
+\newpage
+
+```{r tab-uni-modeling}
+
+suppl_tables$uni_modeling_results[1, 1] %>% 
+  mutate(Cohort = '') %>% 
+  kable(caption = '\\textbf{Correlation of candidate factors with the count of acute COVID-19 symptoms, long COVID and PASC risk in univariate modeling.}\\\\Exp. estimate: exponentiated regression estimate with 95$\\%$ confidence interval, $exp\\beta$ for the symptom count and odds ratio (OR) for the risk modeling, Significance: p value adjusted for multiple testing with Benjamini-Hochberg method.\\\\The table is available online.', 
+        format = 'latex', 
+        escape = T, 
+        booktabs = T, 
+        col.names = '') %>% 
+  kable_styling(full_width = F)
+
+```
+
+\newpage
+
+# Supplementary Figures {#sec:figures}
+
+```{r fig-symptom-sum, fig.width = mm_inch(suppl_figures$symptom_sum$w), fig.height = mm_inch(suppl_figures$symptom_sum$h), dpi = 600, fig.cap = 'Kinetic of symptom resolution in PASC.'}
+
+suppl_figures$symptom_sum$plot
+
+```
+
+__Supplementary Figure \@ref(fig:fig-symptom-sum). Kinetic of symptom resolution in PASC.__
+
+Frequency of symptomatic individuals and symptom resolution kinetics were investigated in the subsets of the Tyrol (TY) and South Tyrol (STY) cohorts with the minimal observation time (SARS-CoV-2 test - survey) of 90 days.
+
+__(A)__ Percents of symptomatic participants in time. Statistical significance was determined by $\chi^2$ test for trend. P values are shown in the plot caption.
+
+__(B, C)__ Symptom number trajectories in the entire study cohorts (__B__) and in the subsets with or without PASC. Thin gray lines: individual symptom number trajectories, thick color line: median symptom count, color ribbon: IQR. Statistical significance was determined by mixed-effect Poisson modeling. Model estimates ($\beta$) with 95% CI and p values are indicated in the plot.
+
+Numbers of complete cases are indicted under the plots.
+
+\newpage
+
+```{r fig-frequencies-cohort, fig.width = mm_inch(paper_figures$frequencies_sympt$w), fig.height = mm_inch(paper_figures$frequencies_sympt$h), dpi = 600, fig.cap = 'Symptom frequency in acute and sub-acute COVID-19 and long COVID in the entire study cohorts.'}
+
+suppl_figures$frequencies_cohort$plot
+
+```
+
+__Supplementary Figure \@ref(fig:fig-frequencies-cohort). Symptom frequency in acute and sub-acute COVID-19, long COVID and PASC in the entire study cohorts.__
+
+Symptom frequencies were expressed as percentages of the respective study cohort. Point size and color represents the percentage. Numbers of complete observations are indicated below the plot.
+
+tired. day: tiredness at day, imp.: impaired, conc.: concentration, abd. pain: abdominal pain, dim.: diminished, f.m.s: fine motor skills, bl.: blue, marm. skin: marmorated skin, TY: Tyrol, STY: South Tyrol cohort.
+
+\newpage
+
+```{r fig-top-10-symptoms, fig.width = mm_inch(suppl_figures$top_10_symptoms$w), fig.height = mm_inch(suppl_figures$top_10_symptoms$h), dpi = 600, fig.cap = 'Ten most frequent symptoms of acute, sub-acute COVID-19, long COVID and PASC.'}
+
+suppl_figures$top_10_symptoms$plot
+
+```
+
+
+__Supplementary Figure \@ref(fig:fig-top-10-symptoms). Ten most frequent symptoms of acute, sub-acute COVID-19, long COVID and PASC.__
+
+Symptom frequencies were expressed as percentages of the individuals with symptoms at the indicated time points after clinical onset. Ten most frequent symptoms at the indicated time points are presented. Numbers of complete observations are indicated below the plot.
+
+tired. day: tiredness at day, imp.: impaired, conc.: concentration, dim.: diminished, TY: Tyrol, STY: South Tyrol cohort.
+
+\newpage
+
+```{r fig-pheno-diagnostic, fig.width = mm_inch(suppl_figures$symptom_clust_diagnosis$w), fig.height = mm_inch(suppl_figures$symptom_clust_diagnosis$h), dpi = 600, fig.cap = 'Determination of the optimal cluster number and clustering variance in association analysis of acute COVID-19, long COVID and PASC symptoms.'}
+
+suppl_figures$symptom_clust_diagnosis$plot
+
+```
+
+__Supplementary Figure \@ref(fig:fig-pheno-diagnostic). Determination of the optimal cluster number and clustering variance in association analysis of acute COVID-19, long COVID and PASC symptoms.__
+
+Association of acute COVID-19, long COVID and PASC symptoms in the training Tyrol (TY) cohort was investigated by simple matching distance (SMD) and PAM (partitioning around medoids) algorithm. The phenotype assignment scheme was applied to the test South Tyrol data set.
+
+__(A)__ Plots of total within-cluster sum of squares as a function of cluster number used to guide the decision on the optimal cluster count by the 'curve elbow' method. Dashed vertical lines represent the chosen numbers of persistent symptom clusters.
+
+__(B)__ Ratios of between-cluster to total sum of squares (SS).
+
+\newpage
+
+```{r fig-acute-pheno-test, fig.width = mm_inch(suppl_figures$acute_phenotypes$w), fig.height = mm_inch(suppl_figures$acute_phenotypes$h), dpi = 600, fig.cap = 'Clustering of acute COVID-19 symptoms in the test South Tyrol cohort.'}
+
+suppl_figures$acute_phenotypes$plot
+
+```
+
+__Supplementary Figure \@ref(fig:fig-acute-pheno-test). Clustering of acute COVID-19 symptoms in the test South Tyrol cohort.__
+
+Clusters (phenotypes) of acute COVID-19 symptoms, the non-specific infection (NIP) and multi-organ phenotype (MOP), were defined in the training Tyrol (TY) cohort by simple matching distance (SMD) and PAM (partitioning around medoids) algorithm. The phenotype assignment scheme was applied to the test South Tyrol (STY) data set. SMD values for symptom pairs in the STY cohort are presented as a heat map. The number of complete observations is indicated under the plot.
+
+tired. day: tiredness at day, imp.: impaired, conc.: concentration, abd. pain: abdominal pain, dim.: diminished, f.m.s: fine motor skills, bl.: blue, marm. skin: marmorated skin.
+
+\newpage
+
+```{r fig-long-pheno-test, fig.width = mm_inch(suppl_figures$long_phenotypes$w), fig.height = mm_inch(suppl_figures$long_phenotypes$h), dpi = 600, fig.cap = 'Clustering of long COVID symptoms in the test South Tyrol cohort.'}
+
+suppl_figures$long_phenotypes$plot
+
+```
+
+__Supplementary Figure \@ref(fig:fig-long-pheno-test). Clustering of long COVID symptoms in the test South Tyrol cohort.__
+
+Clusters (phenotypes) of long COVID symptoms, the hypo/anosmia (HAP), fatigue (FAP) and multi-organ phenotype (MOP), were defined in the training Tyrol (TY) cohort with simple matching distance (SMD) and PAM algorithm. The phenotype assignment scheme was applied to the test South Tyrol (STY) data set. SMD values for symptom pairs in the STY cohort are presented as a heat map. The number of complete observations is indicated under the plot.
+
+tired. day: tiredness at day, imp.: impaired, conc.: concentration, abd. pain: abdominal pain, dim.: diminished, f.m.s: fine motor skills, bl.: blue, marm. skin: marmorated skin.
+
+\newpage
+
+```{r fig-pasc-pheno-train, fig.width = mm_inch(suppl_figures$pasc_phenotypes_north$w), fig.height = mm_inch(suppl_figures$pasc_phenotypes_north$h), dpi = 600, fig.cap = 'Clustering of PASC symptoms in the training Tyrol cohort.'}
+
+suppl_figures$pasc_phenotypes_north$plot
+
+```
+
+__Supplementary Figure \@ref(fig:fig-pasc-pheno-train). Clustering of PASC symptoms in the training Tyrol cohort.__
+
+Clusters (phenotypes) of PASC symptoms, the hypo/anosmia (HAP), fatigue (FAP) and multi-organ phenotype (MOP), were defined in the training Tyrol (TY) cohort with simple matching distance (SMD) and PAM algorithm. The phenotype assignment scheme was applied to the test South Tyrol (STY) data set. SMD values for symptom pairs in the TY cohort are presented as a heat map. The number of complete observations is indicated under the plot.
+
+tired. day: tiredness at day, imp.: impaired, conc.: concentration, abd. pain: abdominal pain, dim.: diminished, f.m.s: fine motor skills, bl.: blue, marm. skin: marmorated skin.
+
+\newpage
+
+```{r fig-pasc-pheno-test, fig.width = mm_inch(suppl_figures$pasc_phenotypes_south$w), fig.height = mm_inch(suppl_figures$pasc_phenotypes_south$h), dpi = 600, fig.cap = 'Clustering of PASC symptoms in the test South Tyrol cohort.'}
+
+suppl_figures$pasc_phenotypes_south$plot
+
+```
+
+__Supplementary Figure \@ref(fig:fig-pasc-pheno-test). Clustering of PASC symptoms in the test South Tyrol cohort.__
+
+Clusters (phenotypes) of PASC symptoms, the hypo/anosmia (HAP), fatigue (FAP) and multi-organ phenotype (MOP), were defined in the training Tyrol (TY) cohort with simple matching distance (SMD) and PAM algorithm. The phenotype assignment scheme was applied to the test South Tyrol (STY) data set. SMD values for symptom pairs in the STY cohort are presented as a heat map. The number of complete observations is indicated under the plot.
+
+tired. day: tiredness at day, imp.: impaired, conc.: concentration, abd. pain: abdominal pain, dim.: diminished, f.m.s: fine motor skills, bl.: blue, marm. skin: marmorated skin.
+
+\newpage
+
+```{r fig-part-diagnostic, fig.width = mm_inch(suppl_figures$part_clust_diagnosis$w), fig.height = mm_inch(suppl_figures$part_clust_diagnosis$h), dpi = 600, fig.cap = 'Determination of the optimal $\\epsilon$ parameter value and clustering variance in association analysis of long COVID and PASC individuals.'}
+
+suppl_figures$part_clust_diagnosis$plot
+
+```
+
+__Supplementary Figure \@ref(fig:fig-part-diagnostic). Determination of the optimal $\epsilon$ parameter value and clustering variance in association analysis of long COVID and PASC individuals.__
+
+Subsets of long COVID and PASC individuals were defined in the training Tyrol (TY) cohort with Manhattan distance and DBSCAN clustering according to the counts of hypo/anosmia (HAP), fatigue (FAP) and multi-organ phenotype (MOP) symptoms. The subset assignment in the test South Tyrol (STY) cohort was done with k-nearest-neighbor label propagation algorithm. The analysis was conducted in the subsets of the study cohorts with the minimal observation time (SARS-CoV-2 test - survey) of 90 days.
+
+__(A)__ Plots of the sorted 4-nearest neighbor (4-NN) Manhattan distances used to guide the decision on the optimal value of the $\epsilon$. The optimal $\epsilon$ value was defined as the 4-NN value preceding the steep increase of the 4-NN distance.
+
+__(B)__ Ratios of between-cluster to total sum of squares (SS).
+
+\newpage
+
+```{r fig-part-clust, fig.width = mm_inch(suppl_figures$pasc_subsets$w), fig.height = mm_inch(suppl_figures$pasc_subsets$h), dpi = 600, fig.cap = 'Subsets of PASC individuals defined by HAP, FAP and MOP phenotype symptoms.'}
+
+suppl_figures$pasc_subsets$plot
+
+```
+
+__Supplementary Figure \@ref(fig:fig-part-clust). Subsets of PASC individuals defined by HAP, FAP and MOP phenotype symptoms.__
+
+Hypo/anosmia-negative (HAP-), intermediate (HAPi) and high (HAP+) subsets of PASC individuals were defined in the training Tyrol (TY) cohort with Manhattan distance and DBSCAN clustering according to the counts of hypo/anosmia (HAP), fatigue (FAP) and multi-organ phenotype (MOP) symptoms. The subset assignment in the test South Tyrol (STY) cohort was done with k-nearest-neighbor label propagation algorithm. The analysis was conducted in the subsets of the study cohorts with the minimal observation time (SARS-CoV-2 test - survey) of 90 days.
+
+__(A)__ Two-dimensional principal component analysis (PCA) score plot with the PASC participant subset assignment. Percent variances associated with principal components (PC) are indicated in the plot axes. Numbers of subset individuals are indicated under the plots.
+
+__(B)__ Minimum/maximum-normalized counts of HAP, MOP and FAP symptoms in the PASC participant subsets. Differences between the participant subsets were investigated by Kruskal-Wallis test.
+
+__(C)__ Occurrence of the 10 most frequent HAP, FAP and MOP PASC symptoms (__Supplementary Figure \@ref(fig:fig-top-10-symptoms)__) in the PASC participant subsets presented as a heat map.
+
+imp. conc.: impaired concentration, tired. day: tiredness at day.
+
+\newpage
+
+```{r fig-part-sympt, fig.width = mm_inch(suppl_figures$long_pasc_symptoms$w), fig.height = mm_inch(suppl_figures$long_pasc_symptoms$h), dpi = 600, fig.cap = 'Subsets of PASC individuals defined by HAP, FAP and MOP phenotype symptoms.'}
+
+suppl_figures$long_pasc_symptoms$plot
+
+```
+
+__Supplementary Figure \@ref(fig:fig-part-sympt). Frequency of the most frequent symptoms in the long COVID and PASC participant subsets.__
+
+Differences in frequency of the most frequent long COVID and PASC symptoms (__Supplementary Figure \@ref(fig:fig-top-10-symptoms)__) between the hypo/anosmia-negative (HAP-), intermediate (HAPi) and high (HAP+) subsets of long COVID (__A__) and PASC (__B__) individuals were investigated by $\chi^2$ test and corrected for multiple comparisons with Benjamini-Hochberg method. Numbers of subset individuals are indicated under the plots.
+
+\newpage
+
+```{r fig-part-clinic, fig.width = mm_inch(suppl_figures$pasc_clinics$w), fig.height = mm_inch(suppl_figures$pasc_clinics$h), dpi = 600, fig.cap = 'The most relevant demographic and clinical features of the PASC participant subsets.'}
+
+suppl_figures$pasc_clinics$plot
+
+```
+
+__Supplementary Figure \@ref(fig:fig-part-clinic). The most relevant demographic and clinical features of the PASC participant subsets.__
+
+Differences in demographic and clinical features (__Supplementary Table \@ref(tab:tab-subset-clinic)__) between the hypo/anosmia-negative (HAP-), intermediate (HAPi) and high (HAP+) subsets of long COVID individuals were investigated by $\chi^2$ test. Comparison results for the most differentiating features: sex (__A__), body mass index class (__B__), number of comorbidities (__C__) and antibiotic therapy during acute COVID-19 (__D__) are presented. Raw and multiple testing-adjusted significance (pFDR) p values are presented in the plot captions. Numbers of subset individuals are indicated under the plots. TY: Tyrol, STY: South Tyrol.
+
+\newpage
+
+```{r fig-part-recovery, fig.width = mm_inch(suppl_figures$pasc_recovery$w), fig.height = mm_inch(suppl_figures$pasc_recovery$h), dpi = 600, fig.cap = 'Acute symptom count, rating of physical, quality of life and mental impairment in the PASC participant subsets.'}
+
+suppl_figures$pasc_recovery$plot
+
+```
+
+__Supplementary Figure \@ref(fig:fig-part-recovery). Acute symptom count, rating of physical, quality of life and mental impairment in the PASC participant subsets.__
+
+__(A)__ Numbers (#) of acute COVID-19 symptoms in the hypo/anosmia-negative (HAP-), intermediate (HAPi) and high (HAP+) subsets of PASC individuals. Statistical significance was assessed with Kruskal-Wallis test. Raw and multiple testing-adjusted significance (pFDR) p values are presented in the plot captions. Numbers of subset individuals are indicated under the plots.
+
+__(B)__ Minimum/maximum-normalized scores of physical performance (phys. imp), quality of life (QoL), overall mental health (OMH) impairment and stress in the subsets of PASC individuals. Statistical significance was assessed with Kruskal-Wallis test. Multiple testing-adjusted significance are presented in the plots.
+
+__(C - D)__ Frequencies of self-reported complete convalescence (__B__) and symptom relapse (__C__) in the PASC participant subsets. Statistical significance was assessed by $\chi^2$ test. Raw and multiple testing-adjusted significance (pFDR) p values are presented in the plot captions.
+
+TY: Tyrol, STY: South Tyrol.
+
+\newpage
+
+```{r fig-uni-modeling, fig.width = mm_inch(suppl_figures$univariate_risk$w), fig.height = mm_inch(suppl_figures$univariate_risk$h), dpi = 600, fig.cap = 'The major co-variates of acute COVID-19 symptom number, long COVID and PASC risk identified by univariable modeling.'}
+
+suppl_figures$univariate_risk$plot
+
+```
+
+__Supplementary Figure \@ref(fig:fig-uni-modeling). The major co-variates of acute COVID-19 symptom number, long COVID and PASC risk identified by univariable modeling.__
+
+Correlation of candidate factors (__Supplementary Table \@ref(tab:tab-mod-variables)__) associated with the count of acute COVID-19 symptoms (__A__), risk of long COVID (__B__) and PASC (__C__) was investigated with a series of sex- and age-weighted ordinary Poisson (symptom number) or logistic (risk) models. Continuous observation time variable (SARS-CoV-2 test to completion interval) was included in the models as a confounder. Estimate significance was determined by Wald Z-test and corrected for multiple comparisons with Benjamini-Hochberg method. For the full list of significant factors, see: __Supplementary Table \@ref(tab:tab-uni-modeling)__. Estimate values (symptom counts: exponentiated $\beta$, risk: odds ratio/OR) with 95% CI for the ten strongest positive and negative co-variates are presented in Forest plots. Ranges of complete observations included in the models are shown under the plots.
+
+TY: Tyrol, STY: South Tyrol, #: number, comorb.: comorbidities, medic.: medication, freq. resp. inf.: frequent respiratory infections (> 2 per year), depr: depression, MOP: multi-organ phenotype, NIP: non-specific infection phenotype, disord.: disorder, 3Q, 4Q: 3^rd^ and 4^th^ symptom count quartile.
+
+\newpage
+
+```{r fig-lasso-acute, fig.width = mm_inch(suppl_figures$lasso_acute$w), fig.height = mm_inch(suppl_figures$lasso_acute$h), dpi = 600, fig.cap = 'Identification of independent factors associated with acute COVID-19 symptom number by LASSO modeling.'}
+
+suppl_figures$lasso_acute$plot
+
+```
+
+__Supplementary Figure \@ref(fig:fig-lasso-acute). Identification of independent factors associated with acute COVID-19 symptom number by LASSO modeling.__
+
+Correlation of candidate factors (__Supplementary Table \@ref(tab:tab-mod-variables)__) with the count of acute COVID-19 symptoms was investigated by sex- and age-weighted LASSO (least absolute shrinkage and selection operator) Poisson regression in the training Tyrol (TY) cohort. Quality of model predictions was determined by assessment of redistribution error and 50-fold cross-validation (CV) in the Tyrol cohort and external validation in the South Tyrol (STY) collective.
+
+__(A)__ Values of non-zero $\beta$ model estimates. Point size, fill and line length correspond with the exponentiated estimate value. The number of complete observations is indicated under the plot.
+
+__(B)__ Prediction of the acute COVID-19 symptom counts in the training TY and the test STY cohort. Numbers of complete observations, values of redistribution, cross-validation and external validation mean absolute errors (MAE) are indicated under the plots.
+
+comorb.: comorbidities, #: number, disord.: disorder.
+
+\newpage
+
+```{r fig-lasso-risk, fig.width = mm_inch(suppl_figures$lasso_long$w), fig.height = mm_inch(suppl_figures$lasso_long$h), dpi = 600, fig.cap = 'Identification of independent factors associated with long COVID and PASC risk by LASSO modeling.'}
+
+suppl_figures$lasso_long$plot
+
+```
+
+__Supplementary Figure \@ref(fig:fig-lasso-risk). Identification of independent factors associated with long COVID and PASC risk by LASSO modeling.__
+
+Correlation of candidate factors (__Supplementary Table \@ref(tab:tab-mod-variables)__) with the risk of long COVID and PASC was investigated by sex- and age-weighted LASSO (least absolute shrinkage and selection operator) logistic regression in the training Tyrol (TY) cohort. Quality of model predictions was determined by assessment of redistribution error and 50-fold cross-validation (CV) in the Tyrol cohort and external validation in the South Tyrol (STY) collective.
+
+__(A)__ Values of non-zero $\beta$ model odds ratio (OR). Point size, fill and line length correspond with the OR value. Numbers of complete observations are indicated under the plot.
+
+__(B)__ Quality of prediction of long COVID and PASC risk in the training TY and the test STY cohort assessed by receiver-operator characteristic (ROC). AUC: area under the ROC curve.
+
+comorb.: comorbidities, #: number, imp.: impaired.
+
+\newpage
+
+# References
